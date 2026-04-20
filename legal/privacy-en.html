@@ -1,0 +1,143 @@
+<style>
+  .mw-legal{max-width:760px;margin:0 auto;padding:48px 24px 96px;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    color:#0f172a;line-height:1.75;font-size:15px}
+  .mw-legal h1{font-size:30px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px;color:#0f172a}
+  .mw-legal .mw-updated{color:#64748b;font-size:13px;margin:0 0 40px;padding-bottom:20px;border-bottom:1px solid #e2e8f0}
+  .mw-legal h2{font-size:20px;font-weight:700;margin:40px 0 12px;color:#0f172a;letter-spacing:-.01em}
+  .mw-legal h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:#0f172a}
+  .mw-legal p{margin:12px 0}
+  .mw-legal ul{padding-left:22px;margin:12px 0}
+  .mw-legal li{margin:6px 0}
+  .mw-legal strong{color:#0f172a;font-weight:600}
+  .mw-legal code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;background:#f1f5f9;padding:2px 6px;border-radius:6px;color:#0f172a}
+  .mw-legal a{color:#0d9488;text-decoration:none;border-bottom:1px solid rgba(20,184,166,.35)}
+  .mw-legal a:hover{color:#14b8a6;border-bottom-color:#14b8a6}
+  .mw-legal .mw-callout{background:#f0fdfa;border:1px solid #ccfbf1;border-radius:16px;padding:16px 20px;margin:20px 0;color:#0f766e;font-size:14px}
+  .mw-legal table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  .mw-legal th,.mw-legal td{text-align:left;padding:10px 14px;border-bottom:1px solid #e2e8f0;vertical-align:top}
+  .mw-legal th{background:#f8fafc;font-weight:600;color:#475569;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+  @media (prefers-color-scheme: dark){
+    .mw-legal{color:#e2e8f0}
+    .mw-legal h1,.mw-legal h2,.mw-legal h3,.mw-legal strong{color:#f1f5f9}
+    .mw-legal .mw-updated{color:#94a3b8;border-bottom-color:#1e293b}
+    .mw-legal code{background:#1e293b;color:#e2e8f0}
+    .mw-legal .mw-callout{background:rgba(20,184,166,.08);border-color:rgba(20,184,166,.2);color:#5eead4}
+    .mw-legal th{background:#0f172a;color:#cbd5e1}
+    .mw-legal th,.mw-legal td{border-bottom-color:#1e293b}
+    .mw-legal a{color:#2dd4bf;border-bottom-color:rgba(45,212,191,.4)}
+    .mw-legal a:hover{color:#5eead4}
+  }
+</style>
+
+<div class="mw-legal">
+
+<h1>Privacy Policy</h1>
+<p class="mw-updated">Last updated: 2026-04-20 · Applies to ModelWay (modelway.dev) and all subdomains</p>
+
+<div class="mw-callout">
+<strong>In one line:</strong> We collect only what is needed to keep your account and billing working. Our servers <strong>pass your API requests straight through to Anthropic / OpenAI / Google Gemini</strong> — we do not retain prompt content or model responses.
+</div>
+
+<h2>1. Who operates this service</h2>
+<p>This policy is issued by the ModelWay team ("we", "us"). ModelWay is an AI API gateway service; our backend infrastructure is deployed on <strong>AWS us-east-1 (Northern Virginia, USA)</strong>. By accessing modelway.dev or any subdomain you accept this policy.</p>
+
+<h2>2. What we collect</h2>
+
+<h3>2.1 Account information</h3>
+<ul>
+  <li><strong>Email address</strong> — for registration, login, password reset, billing and service notifications</li>
+  <li><strong>Password hash</strong> — stored with bcrypt + salt. We cannot recover your plaintext password.</li>
+</ul>
+
+<h3>2.2 Usage data</h3>
+<ul>
+  <li><strong>Login IP and User-Agent</strong> — for risk control, anomalous-location detection, security audit</li>
+  <li><strong>API call metadata</strong> — timestamp, model name, input / output token count, routed upstream account identifier, response latency, HTTP status code</li>
+  <li><strong>Billing ledger</strong> — top-up records, per-call charge, balance changes</li>
+</ul>
+
+<h3>2.3 Payment information</h3>
+<ul>
+  <li>Order ID, payment channel (Alipay / WeChat Pay / Stripe), amount, currency</li>
+  <li><strong>We never see or store your card number, CVV, or full Alipay/WeChat account.</strong> Payment processing is handled entirely by the third-party channel; we only receive the success/failure callback.</li>
+</ul>
+
+<h3>2.4 What we explicitly do not collect</h3>
+<ul>
+  <li><strong>Prompts you send to models</strong> (the <code>messages</code> / <code>contents</code> / <code>prompt</code> fields in your request body)</li>
+  <li><strong>Model responses returned to you</strong></li>
+  <li>Your contacts, address book, geolocation, or device hardware fingerprints</li>
+</ul>
+<p>Requests and responses flow through memory to the upstream and back to you. They are not written to disk, not inserted into databases, and not written to logs. Our logging pipeline is strictly configured to capture only the metadata listed in §2.2.</p>
+
+<h2>3. How we store data</h2>
+
+<table>
+  <thead><tr><th>Data type</th><th>Location</th><th>Retention</th></tr></thead>
+  <tbody>
+    <tr><td>Account basics</td><td>AWS RDS (us-east-1, encrypted)</td><td>Lifetime of the account</td></tr>
+    <tr><td>Billing ledger</td><td>AWS RDS (us-east-1, encrypted)</td><td>5 years (Chinese tax / accounting law)</td></tr>
+    <tr><td>API call metadata</td><td>AWS RDS + S3 archive</td><td>Detailed 90 days, aggregated indefinitely</td></tr>
+    <tr><td>Login / security logs</td><td>AWS CloudWatch</td><td>90 days</td></tr>
+    <tr><td>Prompt / response content</td><td><strong>Not stored</strong></td><td>—</td></tr>
+  </tbody>
+</table>
+
+<p>All data at rest is encrypted with AWS KMS-managed keys (AES-256). All data in transit uses TLS 1.2 or higher.</p>
+
+<h2>4. Third-party sharing</h2>
+
+<p>To fulfil your API call we must forward requests to the upstream model providers. Your prompt content reaches these upstreams and is then subject to their own privacy policies:</p>
+
+<ul>
+  <li><strong>Anthropic</strong> (Claude family) — <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">anthropic.com/legal/privacy</a></li>
+  <li><strong>OpenAI</strong> (GPT family) — <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">openai.com/policies/privacy-policy</a></li>
+  <li><strong>Google</strong> (Gemini family) — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+</ul>
+
+<p>We forward <strong>only the API request body</strong>. We do not attach your email, IP, or any other account information to upstream calls.</p>
+
+<p>For payments, order metadata is passed to Alipay / WeChat Pay / Stripe solely to complete the transaction.</p>
+
+<p><strong>We do not sell, rent, or loan your data to any other third party.</strong> The only exception is lawful judicial assistance (see §7).</p>
+
+<h2>5. Cookies and localStorage</h2>
+<ul>
+  <li><code>mw_session</code> / <code>mw_auth_token</code> — session credential, HttpOnly + Secure + SameSite=Lax</li>
+  <li><code>mw.lang</code> / <code>mw.theme</code> — language and light/dark preference, localStorage only, never leaves your device</li>
+</ul>
+<p>We do not use third-party advertising or tracking cookies. No Google Analytics, no Facebook Pixel, no cross-site tracking.</p>
+
+<h2>6. Your rights</h2>
+
+<p>As a ModelWay user you have the following rights, exercised by emailing <a href="mailto:support@modelway.dev">support@modelway.dev</a>:</p>
+
+<ul>
+  <li><strong>Access</strong> — request a copy of all data we hold about you (response within 3 business days)</li>
+  <li><strong>Export</strong> — receive account data and call metadata in a machine-readable format (JSON / CSV)</li>
+  <li><strong>Correction</strong> — ask us to correct inaccurate personal data (email, billing info, etc.)</li>
+  <li><strong>Deletion</strong> — close your account and delete all personal data (billing records are retained for 5 years due to tax law, then automatically purged)</li>
+  <li><strong>Objection</strong> — object to non-essential uses of your data</li>
+</ul>
+
+<h2>7. Legal assistance and compliance</h2>
+<p>We comply with applicable laws of the People's Republic of China. When we receive a lawfully issued request from judicial authorities (subpoena, assistance letter, etc.) we will cooperate and provide the account metadata we hold. <strong>Because we do not store prompt or response content, we cannot produce it even if required.</strong></p>
+
+<h2>8. Breach response</h2>
+<p>In the event of a security incident affecting user data, we will notify affected users via their registered email within <strong>72 hours</strong> of confirming the nature of the incident, detailing the scope, measures taken, and recommended action.</p>
+
+<h2>9. Minors</h2>
+<p>The service is intended for users aged 18 and above. We do not market to minors; if we discover a minor's account we will close it and delete the associated data.</p>
+
+<h2>10. Changes to this policy</h2>
+<p>This policy may change as the service evolves. When it does we will: (1) update the "Last updated" date at the top; (2) show a summary of changes on your next login; (3) for material changes (new data categories, new storage regions) we will notify you 30 days in advance by email.</p>
+
+<h2>11. Contact</h2>
+<ul>
+  <li>General enquiries: <a href="mailto:support@modelway.dev">support@modelway.dev</a></li>
+  <li>Security vulnerabilities: <a href="mailto:security@modelway.dev">security@modelway.dev</a></li>
+  <li>Data-protection rights: email subject line "Data request"</li>
+</ul>
+
+</div>

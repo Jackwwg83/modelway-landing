@@ -1,0 +1,175 @@
+<style>
+  .mw-legal{max-width:760px;margin:0 auto;padding:48px 24px 96px;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    color:#0f172a;line-height:1.75;font-size:15px}
+  .mw-legal h1{font-size:30px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px;color:#0f172a}
+  .mw-legal .mw-updated{color:#64748b;font-size:13px;margin:0 0 40px;padding-bottom:20px;border-bottom:1px solid #e2e8f0}
+  .mw-legal h2{font-size:20px;font-weight:700;margin:40px 0 12px;color:#0f172a;letter-spacing:-.01em}
+  .mw-legal h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:#0f172a}
+  .mw-legal p{margin:12px 0}
+  .mw-legal ul{padding-left:22px;margin:12px 0}
+  .mw-legal li{margin:6px 0}
+  .mw-legal strong{color:#0f172a;font-weight:600}
+  .mw-legal code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;background:#f1f5f9;padding:2px 6px;border-radius:6px;color:#0f172a}
+  .mw-legal a{color:#0d9488;text-decoration:none;border-bottom:1px solid rgba(20,184,166,.35)}
+  .mw-legal a:hover{color:#14b8a6;border-bottom-color:#14b8a6}
+  .mw-legal .mw-callout{background:#f0fdfa;border:1px solid #ccfbf1;border-radius:16px;padding:16px 20px;margin:20px 0;color:#0f766e;font-size:14px}
+  .mw-legal .mw-warn{background:#fef2f2;border:1px solid #fecaca;border-radius:16px;padding:16px 20px;margin:20px 0;color:#991b1b;font-size:14px}
+  .mw-legal table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  .mw-legal th,.mw-legal td{text-align:left;padding:10px 14px;border-bottom:1px solid #e2e8f0;vertical-align:top}
+  .mw-legal th{background:#f8fafc;font-weight:600;color:#475569;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+  @media (prefers-color-scheme: dark){
+    .mw-legal{color:#e2e8f0}
+    .mw-legal h1,.mw-legal h2,.mw-legal h3,.mw-legal strong{color:#f1f5f9}
+    .mw-legal .mw-updated{color:#94a3b8;border-bottom-color:#1e293b}
+    .mw-legal code{background:#1e293b;color:#e2e8f0}
+    .mw-legal .mw-callout{background:rgba(20,184,166,.08);border-color:rgba(20,184,166,.2);color:#5eead4}
+    .mw-legal .mw-warn{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25);color:#fca5a5}
+    .mw-legal th{background:#0f172a;color:#cbd5e1}
+    .mw-legal th,.mw-legal td{border-bottom-color:#1e293b}
+    .mw-legal a{color:#2dd4bf;border-bottom-color:rgba(45,212,191,.4)}
+    .mw-legal a:hover{color:#5eead4}
+  }
+</style>
+
+<div class="mw-legal">
+
+<h1>Terms of Service</h1>
+<p class="mw-updated">Last updated: 2026-04-20 · Applies to ModelWay (modelway.dev) and all subdomains</p>
+
+<div class="mw-callout">
+<strong>In one line:</strong> ModelWay is an AI API pass-through gateway. You pay us, we forward your requests to Anthropic / OpenAI / Google. <strong>Your prompt content, compliance, and usage are your responsibility</strong> — we do not review or endorse them.
+</div>
+
+<h2>1. Acceptance</h2>
+<p>By registering for a ModelWay account or using any of our services (including API calls, console access, Claude Code integration, etc.) you acknowledge that you have read, understood and agreed to these Terms and to the concurrently effective <a href="/custom/privacy">Privacy Policy</a>. If you do not agree, stop using the service and close your account immediately.</p>
+
+<h2>2. Service description</h2>
+<p>ModelWay provides:</p>
+<ul>
+  <li>Unified pass-through access to upstream AI model APIs (Anthropic, OpenAI, Google Gemini, and others) through a single endpoint and a single API key</li>
+  <li>Token-metered pre-paid billing</li>
+  <li>Multi-account pool scheduling, APAC edge optimisation, automatic failover</li>
+  <li>Drop-in compatibility with official clients such as Claude Code</li>
+</ul>
+<p>We are a gateway — we do not train models, we do not rewrite your prompts, and we do not curate content on your behalf.</p>
+
+<h2>3. Your obligations</h2>
+
+<h3>3.1 Comply with upstream policies</h3>
+<p>Every API call you make through ModelWay is, legally and contractually, a call against the upstream provider. You must comply simultaneously with each of their usage policies:</p>
+<ul>
+  <li><strong>Anthropic</strong> <a href="https://www.anthropic.com/legal/aup" target="_blank" rel="noopener">Acceptable Use Policy</a></li>
+  <li><strong>OpenAI</strong> <a href="https://openai.com/policies/usage-policies" target="_blank" rel="noopener">Usage Policies</a></li>
+  <li><strong>Google</strong> <a href="https://policies.google.com/terms/generative-ai/use-policy" target="_blank" rel="noopener">Generative AI Prohibited Use Policy</a></li>
+</ul>
+<p>If your traffic causes an upstream to suspend any account in our pool, we reserve the right to recover the resulting losses from the violating user.</p>
+
+<h3>3.2 Account and key security</h3>
+<ul>
+  <li>Keep your password and API keys safe; do not share them or commit them to public Git repositories</li>
+  <li>Charges incurred from leaked API keys are your responsibility</li>
+  <li>Revoke and rotate your keys in the console immediately if you suspect a leak</li>
+  <li>One natural person may register only one account</li>
+</ul>
+
+<h3>3.3 Lawful use</h3>
+<p>You undertake not to use ModelWay for any of the following:</p>
+<ul>
+  <li>Generating or distributing content that violates the laws of the People's Republic of China (including but not limited to content that is politically sensitive, terroristic, obscene, gambling-related or drug-related)</li>
+  <li>Infringing the intellectual property, privacy, reputation, or likeness rights of others</li>
+  <li>Generating malicious content targeting specific individuals or groups (harassment, defamation, extortion, hate speech)</li>
+  <li>Producing deepfakes for fraud or impersonation</li>
+  <li>Assisting or carrying out network attacks, or developing malicious code</li>
+  <li>Mass-automated scraping, volume farming, or abuse of free credits</li>
+  <li>Reverse-engineering, bypassing billing, bypassing rate limits, or interfering with our scheduling systems</li>
+  <li>Reselling or redistributing the service to third parties (for commercial partnerships please contact <a href="mailto:support@modelway.dev">support@modelway.dev</a>)</li>
+</ul>
+
+<h2>4. Billing and refunds</h2>
+
+<div class="mw-callout">
+<strong>Billing model:</strong> Pre-paid top-up · per-token deduction · balance never expires · <strong>top-ups are non-refundable</strong> (but your balance remains usable indefinitely).
+</div>
+
+<h3>4.1 Pricing</h3>
+<ul>
+  <li>Each API call is charged by actual input / output token count</li>
+  <li>Unit prices are as published in our console and track upstream adjustments</li>
+  <li>Top-up promotions follow the rules stated on the corresponding promotional page</li>
+</ul>
+
+<h3>4.2 Balance</h3>
+<ul>
+  <li>Your balance is credited to your account and may be used against any open model</li>
+  <li>Balance does not correspond to a fixed token count — the exchange rate shifts with upstream prices</li>
+  <li>Unused balance is forfeited when the account is closed</li>
+</ul>
+
+<h3>4.3 Refunds</h3>
+<p><strong>Top-ups are, as a rule, non-refundable.</strong> Exceptions:</p>
+<ul>
+  <li>If we unilaterally discontinue the service (see §7), unused balance is refunded via the original payment channel</li>
+  <li>Billing errors caused by our system are compensated to your balance after verification</li>
+  <li>If you made no API calls within 30 days of top-up and can demonstrate the payment was in error, you may request a refund to the original payment channel (net of payment-gateway fees)</li>
+</ul>
+
+<h2>5. Disclaimer</h2>
+
+<div class="mw-warn">
+<strong>The service is provided "as is".</strong> We work hard to keep it available and correct, but we are not liable for the following.
+</div>
+
+<ul>
+  <li><strong>Upstream failures</strong> — outages, rate-limits, price changes or model deprecations by Anthropic / OpenAI / Google that affect your calls</li>
+  <li><strong>Force majeure</strong> — earthquakes, wars, government regulation, internet-backbone disruption (subsea cables, major carriers, etc.)</li>
+  <li><strong>Cross-border network jitter</strong> — public-internet volatility between you and our edge nodes</li>
+  <li><strong>Model output quality</strong> — correctness, non-infringement, or fit-for-purpose of returned content is shared between the upstream provider and the user</li>
+  <li><strong>User-side mistakes</strong> — leaked API keys, malformed prompts, infinite loops causing runaway spend</li>
+</ul>
+
+<p>To the maximum extent permitted by law, our total liability for any service-related failure is capped at the sum of top-ups made to your account in the preceding 12 months.</p>
+
+<h2>6. Intellectual property</h2>
+<ul>
+  <li>The ModelWay name, logo, site design, and documentation copyright belong to us</li>
+  <li>Ownership and usage rights of prompts you submit and responses you receive are governed by the respective upstream model provider's terms</li>
+  <li>You grant us the right to use your request metadata (excluding prompt content, see <a href="/custom/privacy">Privacy Policy</a>) as necessary to operate the service</li>
+</ul>
+
+<h2>7. Termination</h2>
+
+<h3>7.1 You close your account</h3>
+<p>You may initiate account closure from the console. After closure, your data is handled per the <a href="/custom/privacy">Privacy Policy</a>; unused balance is forfeited.</p>
+
+<h3>7.2 We close your account</h3>
+<p>We reserve the right to close your account immediately and <strong>without refund of balance</strong> if any of the following occur:</p>
+<ul>
+  <li>Violation of §3.3 (Lawful use)</li>
+  <li>Your traffic triggers upstream suspensions of accounts in our pool</li>
+  <li>Malicious volume farming, reverse engineering, or billing-system tampering</li>
+  <li>Submitting false identity information, or repeated violations of these Terms within 60 days</li>
+</ul>
+
+<h3>7.3 We discontinue the service entirely</h3>
+<p>If we decide to shut down ModelWay as a whole, we will notify all users 30 days in advance and refund unused balance via the original payment channel.</p>
+
+<h2>8. Changes to these Terms</h2>
+<p>These Terms may change as the business evolves. When they do we will:</p>
+<ul>
+  <li>Update the "Last updated" date at the top of this page</li>
+  <li>Show a summary of the change for your acknowledgement on your next login</li>
+  <li>For material changes (pricing mechanism, disclaimer scope, governing law) we will notify you 30 days in advance by email</li>
+</ul>
+<p>Continuing to use the service after changes take effect constitutes acceptance of the new version. If you do not agree, you may close your account before the effective date and negotiate a refund for any unused balance.</p>
+
+<h2>9. Governing law and dispute resolution</h2>
+<p>The formation, validity, interpretation, performance and any disputes arising from or relating to these Terms shall be governed by the laws of the <strong>People's Republic of China</strong>. Any dispute shall first be resolved through good-faith negotiation; failing that, either party may submit the dispute to the <strong>Beijing Arbitration Commission</strong> for arbitration in accordance with its then-current rules. The arbitral award is final and binding on both parties.</p>
+
+<h2>10. Contact</h2>
+<ul>
+  <li>General enquiries and commercial partnerships: <a href="mailto:support@modelway.dev">support@modelway.dev</a></li>
+  <li>Security and abuse reports: <a href="mailto:security@modelway.dev">security@modelway.dev</a></li>
+</ul>
+
+</div>

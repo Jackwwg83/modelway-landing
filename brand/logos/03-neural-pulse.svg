@@ -1,0 +1,13 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ModelWay — Neural Pulse">
+  <title>ModelWay — Neural Pulse</title>
+  <g fill="none" stroke="currentColor" stroke-linecap="round">
+    <path d="M 14 50 Q 28 28, 42 50 T 70 50 Q 80 50, 86 50" stroke-width="3"/>
+    <path d="M 14 50 Q 22 42, 30 50 T 46 50 T 62 50 T 78 50 T 86 50" stroke-width="1.6" opacity="0.55"/>
+  </g>
+  <circle cx="50" cy="50" r="9" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+  <circle cx="50" cy="50" r="5" fill="currentColor"/>
+  <g fill="currentColor">
+    <circle cx="14" cy="50" r="2" opacity="0.6"/>
+    <circle cx="86" cy="50" r="2" opacity="0.6"/>
+  </g>
+</svg>

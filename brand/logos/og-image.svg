@@ -1,0 +1,59 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ModelWay — OG Image">
+  <title>ModelWay</title>
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1517"/>
+      <stop offset="100%" stop-color="#0a0f11"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.15"/>
+      <stop offset="70%" stop-color="#14b8a6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <!-- Subtle grid -->
+  <g stroke="#14b8a6" stroke-width="0.5" opacity="0.06">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="500" y1="0" x2="500" y2="630"/>
+    <line x1="700" y1="0" x2="700" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1100" y1="0" x2="1100" y2="630"/>
+  </g>
+  <!-- Logo (scaled and positioned) -->
+  <g transform="translate(80 200) scale(2.3)">
+    <g fill="none" stroke="#14b8a6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+      <polygon points="50,20 76,35 76,65 50,80 24,65 24,35"/>
+    </g>
+    <g stroke="#14b8a6" stroke-linecap="round" stroke-width="2.2">
+      <line x1="50" y1="50" x2="50" y2="20"/>
+      <line x1="50" y1="50" x2="76" y2="35"/>
+      <line x1="50" y1="50" x2="76" y2="65"/>
+      <line x1="50" y1="50" x2="50" y2="80"/>
+      <line x1="50" y1="50" x2="24" y2="65"/>
+      <line x1="50" y1="50" x2="24" y2="35"/>
+    </g>
+    <g fill="#14b8a6">
+      <circle cx="50" cy="50" r="7.5"/>
+      <circle cx="50" cy="20" r="3.5"/>
+      <circle cx="76" cy="35" r="3.5"/>
+      <circle cx="76" cy="65" r="3.5"/>
+      <circle cx="50" cy="80" r="3.5"/>
+      <circle cx="24" cy="65" r="3.5"/>
+      <circle cx="24" cy="35" r="3.5"/>
+    </g>
+  </g>
+  <!-- Title + tagline -->
+  <text x="380" y="310" fill="#ffffff" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="88" letter-spacing="-2">ModelWay</text>
+  <text x="380" y="380" fill="#14b8a6" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="32" letter-spacing="-0.5">Unified AI API gateway</text>
+  <text x="380" y="425" fill="#8a908c" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="400" font-size="26">Claude · GPT · Gemini — one endpoint, faster than upstream</text>
+  <!-- Bottom label -->
+  <text x="80" y="580" fill="#4a5a57" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="20" letter-spacing="1">modelway.dev</text>
+  <text x="1015" y="580" fill="#4a5a57" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="20" letter-spacing="1">AI · API · GATEWAY</text>
+</svg>

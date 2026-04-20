@@ -1,0 +1,143 @@
+<style>
+  .mw-legal{max-width:760px;margin:0 auto;padding:48px 24px 96px;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    color:#0f172a;line-height:1.75;font-size:15px}
+  .mw-legal h1{font-size:30px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px;color:#0f172a}
+  .mw-legal .mw-updated{color:#64748b;font-size:13px;margin:0 0 40px;padding-bottom:20px;border-bottom:1px solid #e2e8f0}
+  .mw-legal h2{font-size:20px;font-weight:700;margin:40px 0 12px;color:#0f172a;letter-spacing:-.01em}
+  .mw-legal h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:#0f172a}
+  .mw-legal p{margin:12px 0}
+  .mw-legal ul{padding-left:22px;margin:12px 0}
+  .mw-legal li{margin:6px 0}
+  .mw-legal strong{color:#0f172a;font-weight:600}
+  .mw-legal code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;background:#f1f5f9;padding:2px 6px;border-radius:6px;color:#0f172a}
+  .mw-legal a{color:#0d9488;text-decoration:none;border-bottom:1px solid rgba(20,184,166,.35)}
+  .mw-legal a:hover{color:#14b8a6;border-bottom-color:#14b8a6}
+  .mw-legal .mw-callout{background:#f0fdfa;border:1px solid #ccfbf1;border-radius:16px;padding:16px 20px;margin:20px 0;color:#0f766e;font-size:14px}
+  .mw-legal table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  .mw-legal th,.mw-legal td{text-align:left;padding:10px 14px;border-bottom:1px solid #e2e8f0;vertical-align:top}
+  .mw-legal th{background:#f8fafc;font-weight:600;color:#475569;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+  @media (prefers-color-scheme: dark){
+    .mw-legal{color:#e2e8f0}
+    .mw-legal h1,.mw-legal h2,.mw-legal h3,.mw-legal strong{color:#f1f5f9}
+    .mw-legal .mw-updated{color:#94a3b8;border-bottom-color:#1e293b}
+    .mw-legal code{background:#1e293b;color:#e2e8f0}
+    .mw-legal .mw-callout{background:rgba(20,184,166,.08);border-color:rgba(20,184,166,.2);color:#5eead4}
+    .mw-legal th{background:#0f172a;color:#cbd5e1}
+    .mw-legal th,.mw-legal td{border-bottom-color:#1e293b}
+    .mw-legal a{color:#2dd4bf;border-bottom-color:rgba(45,212,191,.4)}
+    .mw-legal a:hover{color:#5eead4}
+  }
+</style>
+
+<div class="mw-legal">
+
+<h1>隐私政策</h1>
+<p class="mw-updated">最后更新日期：2026-04-20 · 适用于 ModelWay（modelway.dev）及所有子域名</p>
+
+<div class="mw-callout">
+<strong>一句话总结：</strong>我们只收集让你账户和计费正常工作所必需的数据；我们的服务器<strong>仅透传你的 API 请求到 Anthropic / OpenAI / Google Gemini</strong>，不留存 prompt 内容或模型回复。
+</div>
+
+<h2>1. 服务提供方</h2>
+<p>本隐私政策由 ModelWay 团队（以下简称"我们"）发布。ModelWay 是一个 AI API 网关服务，后端基础设施部署在 <strong>AWS us-east-1（美国弗吉尼亚北部）</strong>。你访问 modelway.dev 及其子域名即表示接受本政策。</p>
+
+<h2>2. 我们收集什么</h2>
+
+<h3>2.1 账户信息</h3>
+<ul>
+  <li><strong>邮箱地址</strong>：用于注册、登录、找回密码、发送账单与服务通知</li>
+  <li><strong>密码哈希</strong>：使用 bcrypt 加盐存储，我们无法还原你的明文密码</li>
+</ul>
+
+<h3>2.2 使用数据</h3>
+<ul>
+  <li><strong>登录 IP 与 User-Agent</strong>：用于风控、异地登录检测、安全审计</li>
+  <li><strong>API 调用元数据</strong>：请求时间戳、调用的模型名、input / output token 数、路由到的上游账户标识、响应延迟、HTTP 状态码</li>
+  <li><strong>计费流水</strong>：充值记录、每次调用扣费金额、余额变动</li>
+</ul>
+
+<h3>2.3 支付信息</h3>
+<ul>
+  <li>支付订单号、支付渠道（支付宝 / 微信 / Stripe）、金额、币种</li>
+  <li><strong>我们不接触也不存储你的银行卡号、CVV、支付宝/微信完整账号</strong>。支付处理完全由第三方渠道完成，我们仅接收支付成功/失败的回调。</li>
+</ul>
+
+<h3>2.4 我们明确不收集的内容</h3>
+<ul>
+  <li><strong>你发给模型的 prompt 内容</strong>（请求 body 中的 messages / contents / prompt 字段）</li>
+  <li><strong>模型返回给你的 response 内容</strong></li>
+  <li>你的联系人、通讯录、地理位置、设备硬件信息</li>
+</ul>
+<p>请求与响应仅在内存中透传到上游和回传给你，不落盘、不进数据库、不进日志。我们的日志系统被严格配置为仅记录元数据（见 2.2）。</p>
+
+<h2>3. 数据如何存储</h2>
+
+<table>
+  <thead><tr><th>数据类型</th><th>存储位置</th><th>存储期限</th></tr></thead>
+  <tbody>
+    <tr><td>账户基本信息</td><td>AWS RDS（us-east-1，加密）</td><td>账户有效期内</td></tr>
+    <tr><td>计费与账单流水</td><td>AWS RDS（us-east-1，加密）</td><td>5 年（中国税法 / 会计法要求）</td></tr>
+    <tr><td>API 调用元数据</td><td>AWS RDS + 归档 S3</td><td>详细记录 90 天，聚合数据永久</td></tr>
+    <tr><td>登录日志 / 安全日志</td><td>AWS CloudWatch</td><td>90 天</td></tr>
+    <tr><td>Prompt / Response 内容</td><td><strong>不存储</strong></td><td>—</td></tr>
+  </tbody>
+</table>
+
+<p>所有静态数据使用 AWS KMS 管理的密钥加密（AES-256），传输全程使用 TLS 1.2+。</p>
+
+<h2>4. 第三方共享</h2>
+
+<p>为了完成你的 API 调用，我们必须将请求转发给以下上游模型提供商。你的 prompt 内容会到达这些上游，由它们各自的隐私政策处理：</p>
+
+<ul>
+  <li><strong>Anthropic</strong>（Claude 系列）— 隐私政策：<a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">anthropic.com/legal/privacy</a></li>
+  <li><strong>OpenAI</strong>（GPT 系列）— 隐私政策：<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">openai.com/policies/privacy-policy</a></li>
+  <li><strong>Google</strong>（Gemini 系列）— 隐私政策：<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+</ul>
+
+<p>我们只转发 <strong>API 请求体</strong>本身，不会把你的账户信息、邮箱、IP 额外附加给上游。</p>
+
+<p>支付环节，支付订单元数据会传给支付宝 / 微信支付 / Stripe，用于完成交易。</p>
+
+<p><strong>除此以外，我们不会向任何第三方出售、出租、出借你的任何数据。</strong>法律要求的司法协助除外（见 §7）。</p>
+
+<h2>5. Cookie 与 localStorage</h2>
+<ul>
+  <li><code>mw_session</code> / <code>mw_auth_token</code>：会话凭证，HttpOnly + Secure + SameSite=Lax</li>
+  <li><code>mw.lang</code> / <code>mw.theme</code>：语言和明暗模式偏好，localStorage，仅本地</li>
+</ul>
+<p>我们不使用第三方广告追踪 cookie，不嵌入 Google Analytics、Facebook Pixel 等跨站跟踪。</p>
+
+<h2>6. 你的权利</h2>
+
+<p>作为 ModelWay 用户，你有以下权利，可通过邮件 <a href="mailto:support@modelway.dev">support@modelway.dev</a> 行使：</p>
+
+<ul>
+  <li><strong>查询权</strong>：请求查阅我们持有的关于你的全部数据（3 个工作日内响应）</li>
+  <li><strong>导出权</strong>：以机器可读格式（JSON / CSV）导出账户数据与调用元数据</li>
+  <li><strong>更正权</strong>：要求更正不准确的个人信息（邮箱、账单信息等）</li>
+  <li><strong>删除权</strong>：注销账户并删除全部个人数据（计费流水因税法要求保留 5 年后自动清理）</li>
+  <li><strong>反对权</strong>：反对我们将你的数据用于非必要用途</li>
+</ul>
+
+<h2>7. 司法协助与合规</h2>
+<p>我们遵守中华人民共和国相关法律法规。在收到合法的司法机关出具的调取文件（搜查令、协查函等）时，我们将配合提供所持有的账户元数据。<strong>由于我们不存储 prompt 和 response 内容，即使被要求也无法提供。</strong></p>
+
+<h2>8. 数据泄露响应</h2>
+<p>若发生影响用户数据的安全事件，我们将在确认事件性质后 <strong>72 小时内</strong>通过注册邮箱通知受影响的用户，并说明事件范围、已采取的应对措施和建议行动。</p>
+
+<h2>9. 未成年人</h2>
+<p>本服务面向 18 岁及以上用户。我们不面向未成年人主动营销，若发现未成年人账户我们会主动关停并删除数据。</p>
+
+<h2>10. 政策变更</h2>
+<p>本政策可能随服务演进而变更。变更时我们会：（1）更新本页顶部的"最后更新日期"；（2）下次登录时弹出变更摘要；（3）重大变更（如新增数据类别、变更存储地区）会提前 30 天通过邮件通知。</p>
+
+<h2>11. 联系方式</h2>
+<ul>
+  <li>日常咨询：<a href="mailto:support@modelway.dev">support@modelway.dev</a></li>
+  <li>安全漏洞：<a href="mailto:security@modelway.dev">security@modelway.dev</a></li>
+  <li>数据保护相关权利行使：邮件主题请注明「数据请求」</li>
+</ul>
+
+</div>

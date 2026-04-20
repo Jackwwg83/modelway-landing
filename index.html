@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#020617">
+<title data-i18n="meta.title">ModelWay — 统一 AI API 网关 · Claude, GPT, Gemini</title>
+<meta name="description" data-i18n-attr="description" data-i18n="meta.description" content="统一的 AI API 网关，一个 Key 访问 Claude、GPT、Gemini。亚太边缘加速，按 token 计费，Claude Code 零配置兼容。">
+<meta property="og:title" content="ModelWay — Unified AI API gateway">
+<meta property="og:description" content="One API key. Every major model. APAC edge routing, token-level billing, Claude Code ready.">
+<meta property="og:image" content="/og-image.png">
+<meta property="og:url" content="https://modelway.dev">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://modelway.dev">
+<script>
+  // FOUC prevention — apply theme before first paint
+  (function(){
+    var t = localStorage.getItem('mw-theme');
+    var l = localStorage.getItem('mw-lang');
+    if (t === 'light' || (t !== 'dark' && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.remove('dark');
+    }
+    if (l === 'en') document.documentElement.lang = 'en';
+  })();
+</script>
+<style>
+/* ========== Reset & Base ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  line-height:1.6;min-height:100vh;overflow-x:hidden;
+  background:var(--bg);color:var(--fg);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  transition:background .3s ease,color .3s ease;
+}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img,svg{display:block;max-width:100%}
+table{border-collapse:collapse;width:100%}
+
+/* ========== Design Tokens ========== */
+:root{
+  --primary-50:#f0fdfa; --primary-100:#ccfbf1; --primary-200:#99f6e4;
+  --primary-300:#5eead4; --primary-400:#2dd4bf; --primary-500:#14b8a6;
+  --primary-600:#0d9488; --primary-700:#0f766e; --primary-800:#115e59;
+  --primary-900:#134e4a; --primary-950:#042f2e;
+
+  --bg:#f9fafb; --bg-elev:#ffffff; --bg-elev-2:#f3f5f7;
+  --border:#e5e7eb; --border-strong:#d1d5db;
+  --fg:#111827; --fg-muted:#4b5563; --fg-dim:#6b7280;
+
+  --gradient: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  --gradient-hover: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  --shadow-card: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-card-hover: 0 10px 40px rgba(0,0,0,.08);
+  --shadow-glass: 0 8px 32px rgba(0,0,0,.08);
+  --shadow-glow: 0 0 20px rgba(20,184,166,.25);
+  --shadow-glow-lg: 0 0 40px rgba(20,184,166,.35);
+  --shadow-cta: 0 4px 6px rgba(20,184,166,.25);
+  --shadow-cta-hover: 0 10px 20px rgba(20,184,166,.35);
+}
+html.dark{
+  --bg:#020617; --bg-elev:#0f172a; --bg-elev-2:#1e293b;
+  --border:#1e293b; --border-strong:#334155;
+  --fg:#f3f4f6; --fg-muted:#94a3b8; --fg-dim:#64748b;
+  --shadow-card: 0 1px 3px rgba(0,0,0,.3), 0 1px 2px rgba(0,0,0,.4);
+  --shadow-card-hover: 0 10px 40px rgba(0,0,0,.5);
+  --shadow-glass: 0 8px 32px rgba(0,0,0,.4);
+}
+
+/* ========== Layout ========== */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+@media (min-width:768px){.container{padding:0 40px}}
+
+/* ========== Header ========== */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(249,250,251,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+html.dark .site-header{background:rgba(2,6,23,.75)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;letter-spacing:-.01em}
+.brand-icon{width:28px;height:28px;color:var(--primary-500)}
+.nav{display:none;align-items:center;gap:8px}
+@media (min-width:768px){.nav{display:flex}}
+.nav a,.nav button{
+  padding:8px 14px;border-radius:12px;font-size:14px;color:var(--fg-muted);
+  transition:all .15s ease;font-weight:500;
+}
+.nav a:hover,.nav button:hover{color:var(--fg);background:var(--bg-elev-2)}
+.nav .lang-toggle{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:ui-monospace,monospace;font-size:12px;letter-spacing:.02em;
+  padding:6px 10px;border:1px solid var(--border);
+}
+.nav .lang-toggle .active{color:var(--primary-600)}
+html.dark .nav .lang-toggle .active{color:var(--primary-400)}
+.nav .theme-toggle{padding:8px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center}
+.nav .theme-toggle svg{width:18px;height:18px}
+.nav .console-btn{
+  background:var(--gradient);color:#fff;box-shadow:var(--shadow-cta);
+  padding:8px 16px;font-weight:500;border-radius:12px;
+}
+.nav .console-btn:hover{background:var(--gradient-hover);box-shadow:var(--shadow-cta-hover);color:#fff}
+.mobile-menu-btn{display:inline-flex;padding:8px;border-radius:12px}
+@media (min-width:768px){.mobile-menu-btn{display:none}}
+.mobile-menu-btn svg{width:20px;height:20px}
+
+/* ========== Hero ========== */
+.hero{
+  position:relative;overflow:hidden;padding:72px 0 80px;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(at 40% 20%, rgba(20,184,166,.12) 0px, transparent 50%),
+    radial-gradient(at 80%  0%, rgba( 6,182,212,.08) 0px, transparent 50%),
+    radial-gradient(at  0% 50%, rgba(20,184,166,.08) 0px, transparent 50%);
+}
+.hero-grid{
+  position:relative;display:grid;grid-template-columns:1fr;gap:48px;align-items:center;
+}
+@media (min-width:1024px){.hero-grid{grid-template-columns:1.1fr 1fr;gap:64px}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 12px;border-radius:9999px;
+  background:var(--primary-50);color:var(--primary-700);
+  font-size:12px;font-weight:500;letter-spacing:.02em;margin-bottom:24px;
+}
+html.dark .hero-badge{background:rgba(20,184,166,.12);color:var(--primary-300)}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--primary-500);box-shadow:0 0 8px var(--primary-500)}
+.hero h1{
+  font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1.05;letter-spacing:-.035em;
+  margin-bottom:16px;
+}
+.hero h1 .accent{
+  background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .subtitle{font-size:clamp(18px,2.5vw,22px);color:var(--fg-muted);font-weight:500;margin-bottom:16px;letter-spacing:-.01em}
+.hero .description{font-size:16px;color:var(--fg-muted);max-width:560px;margin-bottom:32px;line-height:1.65}
+.hero .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;border-radius:12px;
+  background:var(--gradient);color:#fff;font-weight:600;font-size:15px;
+  box-shadow:var(--shadow-cta);transition:all .2s ease-out;
+  white-space:nowrap;
+}
+.btn-primary:hover{background:var(--gradient-hover);box-shadow:var(--shadow-cta-hover);color:#fff;transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0) scale(.98)}
+.btn-primary svg{width:16px;height:16px;transition:transform .2s}
+.btn-primary:hover svg{transform:translateX(3px)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 20px;border-radius:12px;
+  background:transparent;color:var(--fg);font-weight:500;font-size:15px;
+  border:1px solid var(--border-strong);transition:all .2s ease-out;
+  white-space:nowrap;
+}
+.btn-ghost:hover{background:var(--bg-elev-2);color:var(--fg)}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:9999px;
+  font-size:12px;color:var(--fg-muted);background:var(--bg-elev);border:1px solid var(--border);
+  font-weight:500;
+}
+.hero-tag::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--primary-500)}
+
+/* ========== Terminal ========== */
+.terminal{
+  position:relative;border-radius:16px;overflow:hidden;
+  background:#0a1015;border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow-glass), 0 0 60px rgba(20,184,166,.08);
+  min-height:380px;
+}
+html:not(.dark) .terminal{box-shadow:0 20px 48px rgba(15,23,26,.18), 0 0 40px rgba(20,184,166,.12)}
+.term-chrome{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
+.term-dot{width:12px;height:12px;border-radius:50%}
+.term-dot.r{background:#ff5f57}.term-dot.y{background:#febc2e}.term-dot.g{background:#28c840}
+.term-title{margin-left:12px;font-family:ui-monospace,monospace;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.04em}
+.term-body{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.7;
+  padding:20px;color:#d8e0e5;min-height:320px;
+  white-space:pre-wrap;word-break:break-all;
+}
+.term-line{display:block}
+.term-line.cmd{color:#d8e0e5}
+.term-line.cmd .prompt{color:var(--primary-400);margin-right:8px}
+.term-line.cmd .flag{color:#c4a5ff}
+.term-line.cmd .string{color:#ffd596}
+.term-line.info{color:var(--primary-300)}
+.term-line.info .num{color:#ffd596;font-weight:600}
+.term-line.blank{height:1em}
+.term-cursor{display:inline-block;width:8px;height:1em;background:var(--primary-400);vertical-align:middle;animation:term-blink 1s step-end infinite;margin-left:2px}
+@keyframes term-blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+/* ========== Sections ========== */
+.section{padding:80px 0}
+.section-header{text-align:center;margin-bottom:48px;max-width:720px;margin-left:auto;margin-right:auto}
+.section-tag{
+  display:inline-block;font-family:ui-monospace,monospace;font-size:11px;
+  color:var(--primary-600);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;
+}
+html.dark .section-tag{color:var(--primary-400)}
+.section-title{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px}
+.section-sub{font-size:16px;color:var(--fg-muted);line-height:1.65}
+
+/* ========== Features ========== */
+.features-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:768px){.features-grid{grid-template-columns:repeat(3,1fr)}}
+.feature-card{
+  background:var(--bg-elev);border:1px solid var(--border);border-radius:16px;
+  padding:28px;box-shadow:var(--shadow-card);transition:all .3s ease;
+}
+.feature-card:hover{box-shadow:var(--shadow-card-hover);border-color:var(--border-strong);transform:translateY(-2px)}
+html.dark .feature-card{background:rgba(30,41,59,.5)}
+.feature-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg, rgba(20,184,166,.15), rgba(13,148,136,.08));
+  color:var(--primary-500);
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+}
+html.dark .feature-icon{color:var(--primary-400)}
+.feature-icon svg{width:22px;height:22px}
+.feature-card h3{font-size:18px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px}
+.feature-card p{font-size:14px;color:var(--fg-muted);line-height:1.65}
+.feature-card .meta{margin-top:16px;font-family:ui-monospace,monospace;font-size:11px;color:var(--primary-600);letter-spacing:.02em}
+html.dark .feature-card .meta{color:var(--primary-400)}
+
+/* ========== Compare table ========== */
+.compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -24px;padding:0 24px}
+.compare-table{
+  min-width:720px;background:var(--bg-elev);border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--shadow-card);overflow:hidden;
+}
+html.dark .compare-table{background:rgba(30,41,59,.5)}
+.compare-table th,.compare-table td{padding:16px 20px;text-align:left;font-size:14px;border-bottom:1px solid var(--border)}
+.compare-table thead th{
+  font-weight:600;font-size:13px;color:var(--fg-muted);letter-spacing:.02em;
+  background:var(--bg-elev-2);
+}
+html.dark .compare-table thead th{background:rgba(15,23,42,.6)}
+.compare-table thead th.highlight{
+  background:linear-gradient(135deg, rgba(20,184,166,.12), rgba(13,148,136,.06));color:var(--primary-600);font-weight:700;
+}
+html.dark .compare-table thead th.highlight{color:var(--primary-300)}
+.compare-table tbody tr:last-child td{border-bottom:none}
+.compare-table td.highlight{color:var(--primary-600);font-weight:600;background:rgba(20,184,166,.04)}
+html.dark .compare-table td.highlight{color:var(--primary-400);background:rgba(20,184,166,.06)}
+.compare-table td.dim{color:var(--fg-dim)}
+.compare-table td .win::before{content:'★ ';color:var(--primary-500)}
+
+/* ========== Models pill row ========== */
+.models-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.model-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:9999px;
+  background:var(--bg-elev);border:1px solid var(--border);
+  font-family:ui-monospace,monospace;font-size:13px;color:var(--fg);font-weight:500;
+  transition:all .2s ease;
+}
+.model-pill:hover{border-color:var(--primary-500);color:var(--primary-600);background:var(--primary-50)}
+html.dark .model-pill:hover{color:var(--primary-300);background:rgba(20,184,166,.1)}
+.model-pill.more{color:var(--fg-dim);border-style:dashed}
+
+/* ========== Pricing table ========== */
+.pricing-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -24px;padding:0 24px}
+.pricing-table{
+  min-width:680px;background:var(--bg-elev);border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--shadow-card);overflow:hidden;
+}
+html.dark .pricing-table{background:rgba(30,41,59,.5)}
+.pricing-table th,.pricing-table td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
+.pricing-table thead th{
+  font-weight:600;font-size:12px;color:var(--fg-muted);letter-spacing:.08em;text-transform:uppercase;
+  background:var(--bg-elev-2);
+}
+html.dark .pricing-table thead th{background:rgba(15,23,42,.6)}
+.pricing-table thead th.mw{
+  color:var(--primary-600);background:linear-gradient(135deg, rgba(20,184,166,.12), rgba(13,148,136,.06));
+}
+html.dark .pricing-table thead th.mw{color:var(--primary-300)}
+.pricing-table tbody tr:last-child td{border-bottom:none}
+.pricing-table td.model{font-weight:600;color:var(--fg)}
+.pricing-table td.model .badge{
+  display:inline-block;font-family:ui-monospace,monospace;font-size:10px;
+  padding:2px 6px;margin-left:8px;border-radius:4px;
+  background:var(--bg-elev-2);color:var(--fg-muted);font-weight:500;letter-spacing:.04em;
+}
+.pricing-table td.upstream{color:var(--fg-muted);font-family:ui-monospace,monospace;font-size:13px}
+.pricing-table td.mw-price{
+  color:var(--primary-600);font-weight:700;font-family:ui-monospace,monospace;font-size:14px;
+  background:rgba(20,184,166,.04);
+}
+html.dark .pricing-table td.mw-price{color:var(--primary-300);background:rgba(20,184,166,.06)}
+.pricing-table td.parity{color:var(--fg-muted);font-family:ui-monospace,monospace;font-size:13px;font-style:italic}
+.pricing-unit-note{font-size:12px;color:var(--fg-dim);font-family:ui-monospace,monospace;letter-spacing:.02em;text-align:center;margin:16px 0 0}
+.pricing-note{
+  max-width:640px;margin:24px auto 0;padding:16px 20px;border-radius:12px;
+  background:var(--bg-elev-2);border:1px solid var(--border);
+  font-size:13px;color:var(--fg-muted);line-height:1.65;
+}
+html.dark .pricing-note{background:rgba(15,23,42,.6)}
+.pricing-cta-row{text-align:center;margin-top:32px}
+.pricing-cta-row .hint{display:block;font-size:13px;color:var(--fg-muted);margin-top:12px}
+
+/* ========== Pricing brand cards (B3 low-key) ========== */
+.pricing-brands{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  max-width:960px;margin:0 auto;
+}
+@media (max-width: 900px){.pricing-brands{grid-template-columns:repeat(2,1fr)}}
+@media (max-width: 520px){.pricing-brands{grid-template-columns:1fr;gap:14px}}
+.brand-card{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  padding:32px 20px;min-height:180px;
+  background:var(--bg-elev);border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--shadow-card);
+  transition:all .24s ease;
+}
+html.dark .brand-card{background:rgba(30,41,59,.5)}
+.brand-card:hover{transform:translateY(-2px);border-color:var(--primary-400);box-shadow:var(--shadow-glow)}
+.brand-card .brand-name{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted);font-weight:600}
+.brand-card .brand-line{font-size:18px;font-weight:700;color:var(--fg);letter-spacing:-.01em}
+.brand-card .brand-tier{
+  margin-top:4px;padding:5px 12px;border-radius:9999px;
+  font-size:12px;font-weight:600;letter-spacing:.02em;
+  background:rgba(20,184,166,.08);color:var(--primary-600);border:1px solid rgba(20,184,166,.2);
+}
+html.dark .brand-card .brand-tier{background:rgba(20,184,166,.1);color:var(--primary-300);border-color:rgba(20,184,166,.25)}
+.brand-card.parity .brand-tier{
+  background:var(--bg-elev-2);color:var(--fg-muted);border-color:var(--border);
+}
+html.dark .brand-card.parity .brand-tier{background:rgba(15,23,42,.6)}
+.brand-card.more{border-style:dashed;background:transparent;box-shadow:none}
+html.dark .brand-card.more{background:transparent}
+.brand-card.more .brand-line{color:var(--fg-muted)}
+.brand-card.more .brand-tier{background:transparent;border-color:var(--border);color:var(--fg-dim)}
+
+/* ========== Final CTA ========== */
+.final-cta{
+  position:relative;text-align:center;
+  padding:72px 40px;border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg, rgba(20,184,166,.08), rgba(13,148,136,.04));
+  border:1px solid rgba(20,184,166,.15);
+}
+html.dark .final-cta{background:linear-gradient(135deg, rgba(20,184,166,.08), rgba(15,23,42,.4));border-color:rgba(20,184,166,.2)}
+.final-cta::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center, rgba(20,184,166,.15) 0%, transparent 60%);
+}
+.final-cta-inner{position:relative}
+.final-cta h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+.final-cta p{font-size:16px;color:var(--fg-muted);margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto}
+
+/* ========== Footer ========== */
+.site-footer{padding:48px 0 40px;border-top:1px solid var(--border);color:var(--fg-muted)}
+.footer-inner{display:grid;grid-template-columns:1fr;gap:32px;align-items:start}
+@media (min-width:768px){.footer-inner{grid-template-columns:1.2fr 1fr 1fr 1fr}}
+.footer-brand{max-width:320px}
+.footer-brand .brand{margin-bottom:12px}
+.footer-brand p{font-size:13px;line-height:1.65}
+.footer-col h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);margin-bottom:14px}
+.footer-col ul{list-style:none;padding:0;display:grid;gap:10px}
+.footer-col a{font-size:13px;color:var(--fg-muted);transition:color .15s}
+.footer-col a:hover{color:var(--primary-600)}
+html.dark .footer-col a:hover{color:var(--primary-400)}
+.footer-bottom{
+  margin-top:40px;padding-top:24px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  font-family:ui-monospace,monospace;font-size:12px;color:var(--fg-dim);
+}
+
+/* ========== Mobile menu ========== */
+.mobile-menu{
+  display:none;position:fixed;top:64px;left:0;right:0;bottom:0;z-index:40;
+  background:var(--bg);padding:24px;overflow-y:auto;
+}
+.mobile-menu.open{display:block}
+.mobile-menu a,.mobile-menu button{
+  display:flex;align-items:center;padding:14px 16px;border-radius:12px;
+  color:var(--fg);font-size:16px;font-weight:500;width:100%;
+  border-bottom:1px solid var(--border);
+}
+.mobile-menu a:last-child,.mobile-menu button:last-child{border-bottom:none}
+
+/* ========== Animations ========== */
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes slide-up{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+.animate-fade{animation:fade-in .6s ease-out both}
+.animate-slide{animation:slide-up .7s cubic-bezier(.16,1,.3,1) both}
+.reveal{transition:opacity .7s ease-out, transform .7s cubic-bezier(.16,1,.3,1)}
+html.js .reveal{opacity:0;transform:translateY(12px)}
+html.js .reveal.in{opacity:1;transform:translateY(0)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .reveal{opacity:1;transform:none}
+  .term-cursor{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== Header ========== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="ModelWay">
+      <svg class="brand-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55">
+          <polygon points="50,20 76,35 76,65 50,80 24,65 24,35"/>
+        </g>
+        <g stroke="currentColor" stroke-linecap="round" stroke-width="2.5">
+          <line x1="50" y1="50" x2="50" y2="20"/>
+          <line x1="50" y1="50" x2="76" y2="35"/>
+          <line x1="50" y1="50" x2="76" y2="65"/>
+          <line x1="50" y1="50" x2="50" y2="80"/>
+          <line x1="50" y1="50" x2="24" y2="65"/>
+          <line x1="50" y1="50" x2="24" y2="35"/>
+        </g>
+        <g fill="currentColor">
+          <circle cx="50" cy="50" r="8"/>
+          <circle cx="50" cy="20" r="3.5"/>
+          <circle cx="76" cy="35" r="3.5"/>
+          <circle cx="76" cy="65" r="3.5"/>
+          <circle cx="50" cy="80" r="3.5"/>
+          <circle cx="24" cy="65" r="3.5"/>
+          <circle cx="24" cy="35" r="3.5"/>
+        </g>
+      </svg>
+      ModelWay
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="#features" data-i18n="nav.features">功能</a>
+      <a href="#compare" data-i18n="nav.compare">对比</a>
+      <a href="#pricing" data-i18n="nav.pricing">定价</a>
+      <a href="https://github.com/Wei-Shaw/sub2api" target="_blank" rel="noopener" data-i18n="nav.docs">文档</a>
+      <button class="lang-toggle" onclick="MW.toggleLang()" aria-label="Switch language">
+        <span id="lang-zh" class="active">中</span><span>/</span><span id="lang-en">EN</span>
+      </button>
+      <button class="theme-toggle" onclick="MW.toggleTheme()" aria-label="Toggle dark mode">
+        <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a class="console-btn" href="https://api.modelway.dev/admin/dashboard" data-i18n="nav.console">控制台</a>
+    </nav>
+
+    <button class="mobile-menu-btn" onclick="MW.toggleMenu()" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#features" onclick="MW.toggleMenu()" data-i18n="nav.features">功能</a>
+    <a href="#compare" onclick="MW.toggleMenu()" data-i18n="nav.compare">对比</a>
+    <a href="#pricing" onclick="MW.toggleMenu()" data-i18n="nav.pricing">定价</a>
+    <a href="https://github.com/Wei-Shaw/sub2api" target="_blank" rel="noopener" data-i18n="nav.docs">文档</a>
+    <a href="https://api.modelway.dev/admin/dashboard" data-i18n="nav.console">控制台</a>
+    <button onclick="MW.toggleLang()"><span data-i18n="nav.switchLang">切换到 English</span></button>
+    <button onclick="MW.toggleTheme()"><span data-i18n="nav.toggleTheme">切换主题</span></button>
+  </div>
+</header>
+
+<!-- ========== Hero ========== -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy animate-slide">
+      <span class="hero-badge" data-i18n="hero.badge">AI API 网关</span>
+      <h1>
+        <span data-i18n="hero.title1">一个 Key，</span><br>
+        <span class="accent" data-i18n="hero.title2">通往所有主流 AI 模型。</span>
+      </h1>
+      <p class="subtitle" data-i18n="hero.subtitle">Claude / GPT / Gemini 统一 API —— 便宜、快、稳</p>
+      <p class="description" data-i18n="hero.description">把 Anthropic、OpenAI、Google Gemini 的官方 API 统一到一个 Endpoint。Cloudflare 亚太边缘直连,延迟低于直连；Claude 和 GPT 成本比官方低一个档次,真省钱；Claude Code 改一行环境变量即用。</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="https://api.modelway.dev/register">
+          <span data-i18n="hero.ctaPrimary">领取 500K 试用额度</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="btn-ghost" href="#pricing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span data-i18n="hero.ctaSecondary">查看定价</span>
+        </a>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag" data-i18n="hero.tag1">订阅转 API</span>
+        <span class="hero-tag" data-i18n="hero.tag2">会话保持</span>
+        <span class="hero-tag" data-i18n="hero.tag3">按量计费</span>
+        <span class="hero-tag" data-i18n="hero.tag4">Claude Code 兼容</span>
+      </div>
+    </div>
+
+    <div class="terminal animate-fade" aria-hidden="true">
+      <div class="term-chrome">
+        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+        <span class="term-title" id="term-title">bash — modelway.dev</span>
+      </div>
+      <div class="term-body" id="term-body"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Features ========== -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n="features.tag">FEATURES</div>
+      <h2 class="section-title" data-i18n="features.title">三个承诺，每一条都兑现</h2>
+      <p class="section-sub" data-i18n="features.sub">为亚太开发者优化的托管 AI API 网关，不是又一个把请求转发出去的代理。</p>
+    </div>
+
+    <div class="features-grid">
+      <article class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 data-i18n="features.f1.title">一键接入</h3>
+        <p data-i18n="features.f1.desc">兼容 Anthropic、OpenAI、Google Gemini 三家原生 API 协议。改一行 base URL，零 SDK 改造,旧代码直接跑。</p>
+        <div class="meta">ANTHROPIC_BASE_URL=api.modelway.dev</div>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 data-i18n="features.f2.title">稳定可靠</h3>
+        <p data-i18n="features.f2.desc">Cloudflare 边缘接入，亚太首字节延迟 &lt; 60ms。多账户池 + 智能调度，任一上游抖动自动切换,对业务无感知。</p>
+        <div class="meta" data-i18n="features.f2.meta">APAC P50 · 多账户池 · 自动故障转移</div>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3 data-i18n="features.f3.title">显著更便宜</h3>
+        <p data-i18n="features.f3.desc">Claude 和 GPT 在我们这调用,成本比官方低一个档次。Gemini 平价接入。无月费、无承诺、充多少用多少,支付宝 / 微信 / 信用卡都能付。具体价格见下方 pricing。</p>
+        <div class="meta" data-i18n="features.f3.meta">预付充值 · 无月费 · 支付宝 / 微信 / Stripe</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Compare ========== -->
+<section class="section" id="compare" style="background:var(--bg-elev-2)">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n="compare.tag">WHY MODELWAY</div>
+      <h2 class="section-title" data-i18n="compare.title">和你在考虑的方案相比,不同在哪</h2>
+      <p class="section-sub" data-i18n="compare.sub">诚实地比,不遮短。下面这张表可以直接拿去做技术选型文档。</p>
+    </div>
+
+    <div class="compare-wrap reveal">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-i18n="compare.col.feat" style="min-width:160px">能力</th>
+            <th data-i18n="compare.col.direct">直连官方 API</th>
+            <th data-i18n="compare.col.ide">Cursor / Windsurf</th>
+            <th data-i18n="compare.col.self">自建 sub2api</th>
+            <th class="highlight">ModelWay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="compare.r1.name"><strong>Claude / GPT 成本</strong></td>
+            <td class="dim" data-i18n="compare.r1.direct">官方价</td>
+            <td class="dim" data-i18n="compare.r1.ide">打包进订阅费</td>
+            <td class="dim" data-i18n="compare.r1.self">看你走什么渠道</td>
+            <td class="highlight"><span class="win" data-i18n="compare.r1.mw">显著更便宜</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="compare.r2.name"><strong>亚太延迟</strong></td>
+            <td class="dim" data-i18n="compare.r2.direct">取决于上游地区</td>
+            <td class="dim" data-i18n="compare.r2.ide">看内置路由</td>
+            <td class="dim" data-i18n="compare.r2.self">看你自己部署</td>
+            <td class="highlight"><span class="win" data-i18n="compare.r2.mw">CF 亚太边缘直连</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="compare.r3.name"><strong>中文支持</strong></td>
+            <td class="dim" data-i18n="compare.r3.direct">仅英文</td>
+            <td class="dim" data-i18n="compare.r3.ide">英文为主</td>
+            <td class="dim" data-i18n="compare.r3.self">自己翻译</td>
+            <td class="highlight"><span class="win" data-i18n="compare.r3.mw">中英双语,客服同响应</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="compare.r4.name"><strong>使用自由度</strong></td>
+            <td data-i18n="compare.r4.direct">通用,任意调用</td>
+            <td class="dim" data-i18n="compare.r4.ide">绑定 IDE / 工具</td>
+            <td class="dim" data-i18n="compare.r4.self">自建受限</td>
+            <td class="highlight"><span class="win" data-i18n="compare.r4.mw">Raw API,任意调用</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="compare.r5.name"><strong>Claude Code 兼容</strong></td>
+            <td class="dim" data-i18n="compare.r5.direct">有限(需 Pro 订阅)</td>
+            <td class="dim" data-i18n="compare.r5.ide">N/A(IDE 内置)</td>
+            <td class="dim" data-i18n="compare.r5.self">需手动配置</td>
+            <td class="highlight"><span class="win" data-i18n="compare.r5.mw">一行 env var 搞定</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="compare.r6.name"><strong>运维与计费</strong></td>
+            <td data-i18n="compare.r6.direct">零运维,官方计费</td>
+            <td data-i18n="compare.r6.ide">零运维,月订阅</td>
+            <td class="dim" data-i18n="compare.r6.self">服务器 + 账号池自维护</td>
+            <td class="highlight"><span class="win" data-i18n="compare.r6.mw">全托管 + 预付按 token</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Models ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n="models.tag">SUPPORTED MODELS</div>
+      <h2 class="section-title" data-i18n="models.title">最新模型,第一时间接入</h2>
+      <p class="section-sub" data-i18n="models.sub">上游发版后通常 24-48 小时内支持,无需等待,通过同一个 Endpoint 调用。</p>
+    </div>
+
+    <div class="models-row reveal">
+      <span class="model-pill">claude-opus-4.7</span>
+      <span class="model-pill">claude-sonnet-4.6</span>
+      <span class="model-pill">claude-haiku-4.5</span>
+      <span class="model-pill">gpt-5.4</span>
+      <span class="model-pill">gpt-4o</span>
+      <span class="model-pill">gemini-3.1-pro</span>
+      <span class="model-pill">gemini-3-flash</span>
+      <span class="model-pill more" data-i18n="models.more">+ 更多</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Pricing ========== -->
+<section class="section" id="pricing" style="background:var(--bg-elev-2)">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n="pricing.tag">PRICING</div>
+      <h2 class="section-title" data-i18n="pricing.title">按模型定价,都比官方便宜</h2>
+      <p class="section-sub" data-i18n="pricing.sub">Gemini 平价接入,Claude 和 GPT 显著省钱。价格随官方调整同步更新。</p>
+    </div>
+
+    <div class="pricing-brands reveal">
+      <div class="brand-card">
+        <span class="brand-name">Anthropic</span>
+        <span class="brand-line">Claude</span>
+        <span class="brand-tier" data-i18n="pricing.tier.claude">显著更便宜</span>
+      </div>
+      <div class="brand-card">
+        <span class="brand-name">OpenAI</span>
+        <span class="brand-line">GPT</span>
+        <span class="brand-tier" data-i18n="pricing.tier.gpt">更便宜</span>
+      </div>
+      <div class="brand-card parity">
+        <span class="brand-name">Google</span>
+        <span class="brand-line">Gemini</span>
+        <span class="brand-tier" data-i18n="pricing.tier.gemini">平价</span>
+      </div>
+      <div class="brand-card more">
+        <span class="brand-name" data-i18n="pricing.tier.moreTag">MORE</span>
+        <span class="brand-line" data-i18n="pricing.tier.moreLine">更多</span>
+        <span class="brand-tier" data-i18n="pricing.tier.moreHint">持续上线</span>
+      </div>
+    </div>
+
+    <div class="pricing-cta-row reveal">
+      <a class="btn-primary" href="https://api.modelway.dev/register">
+        <span data-i18n="pricing.cta">注册查看实时价格</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <span class="hint" data-i18n="pricing.hint">500K Claude Haiku 免费额度 · 充多少用多少</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Final CTA ========== -->
+<section class="section">
+  <div class="container">
+    <div class="final-cta reveal">
+      <div class="final-cta-inner">
+        <h2 data-i18n="finalCta.title">5 分钟跑通第一次调用</h2>
+        <p data-i18n="finalCta.sub">注册即得 500K Claude Haiku tokens → 拷贝 API Key → 改 base URL。就这么简单。</p>
+        <a class="btn-primary" href="https://api.modelway.dev/register">
+          <span data-i18n="finalCta.btn">开始使用 ModelWay</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="ModelWay">
+          <svg class="brand-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55">
+              <polygon points="50,20 76,35 76,65 50,80 24,65 24,35"/>
+            </g>
+            <g stroke="currentColor" stroke-linecap="round" stroke-width="2.5">
+              <line x1="50" y1="50" x2="50" y2="20"/><line x1="50" y1="50" x2="76" y2="35"/>
+              <line x1="50" y1="50" x2="76" y2="65"/><line x1="50" y1="50" x2="50" y2="80"/>
+              <line x1="50" y1="50" x2="24" y2="65"/><line x1="50" y1="50" x2="24" y2="35"/>
+            </g>
+            <g fill="currentColor">
+              <circle cx="50" cy="50" r="8"/>
+              <circle cx="50" cy="20" r="3.5"/><circle cx="76" cy="35" r="3.5"/>
+              <circle cx="76" cy="65" r="3.5"/><circle cx="50" cy="80" r="3.5"/>
+              <circle cx="24" cy="65" r="3.5"/><circle cx="24" cy="35" r="3.5"/>
+            </g>
+          </svg>
+          ModelWay
+        </a>
+        <p data-i18n="footer.tagline">统一 AI API 网关。Claude、GPT、Gemini,一个 Key 全部接入。为亚太开发者优化。</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.product">产品</h4>
+        <ul>
+          <li><a href="#features" data-i18n="nav.features">功能</a></li>
+          <li><a href="#pricing" data-i18n="nav.pricing">定价</a></li>
+          <li><a href="#compare" data-i18n="nav.compare">对比</a></li>
+          <li><a href="https://api.modelway.dev/admin/dashboard" data-i18n="nav.console">控制台</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.developers">开发者</h4>
+        <ul>
+          <li><a href="https://github.com/Wei-Shaw/sub2api" target="_blank" rel="noopener" data-i18n="nav.docs">文档</a></li>
+          <li><a href="https://github.com/Wei-Shaw/sub2api" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://api.modelway.dev/register" data-i18n="footer.signup">免费注册</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.legal">法务与支持</h4>
+        <ul>
+          <li><a href="https://api.modelway.dev/custom/privacy" data-i18n="footer.privacy">隐私政策</a></li>
+          <li><a href="https://api.modelway.dev/custom/terms" data-i18n="footer.terms">服务条款</a></li>
+          <li><a href="mailto:support@modelway.dev">support@modelway.dev</a></li>
+          <li><a href="mailto:security@modelway.dev">security@modelway.dev</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 ModelWay. All rights reserved.</div>
+      <div>modelway.dev</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ========== i18n dictionary ==========
+const T = {
+  meta: {
+    title: { zh: 'ModelWay — 统一 AI API 网关 · Claude, GPT, Gemini', en: 'ModelWay — Unified AI API gateway · Claude, GPT, Gemini' },
+    description: { zh: '一个 Key 调用 Claude、GPT、Gemini。亚太边缘加速,Claude 和 GPT 显著更便宜,Claude Code 零配置兼容。', en: 'One key for Claude, GPT, Gemini. APAC edge routing, noticeably cheaper Claude and GPT, Claude Code compatible out of the box.' },
+  },
+  nav: {
+    features: { zh: '功能', en: 'Features' },
+    compare: { zh: '对比', en: 'Compare' },
+    pricing: { zh: '定价', en: 'Pricing' },
+    docs: { zh: '文档', en: 'Docs' },
+    console: { zh: '控制台', en: 'Console' },
+    switchLang: { zh: 'Switch to English', en: '切换到中文' },
+    toggleTheme: { zh: '切换主题', en: 'Toggle theme' },
+  },
+  hero: {
+    badge: { zh: 'AI API 网关', en: 'AI API GATEWAY' },
+    title1: { zh: '一个 Key，', en: 'One key,' },
+    title2: { zh: '通往所有主流 AI 模型。', en: 'every major AI model.' },
+    subtitle: { zh: 'Claude / GPT / Gemini 统一 API —— 便宜、快、稳', en: 'Claude / GPT / Gemini unified API — cheaper, faster, rock-solid' },
+    description: { zh: '把 Anthropic、OpenAI、Google Gemini 的官方 API 统一到一个 Endpoint。Cloudflare 亚太边缘直连,延迟低于直连；Claude 和 GPT 成本比官方低一个档次,真省钱；Claude Code 改一行环境变量即用。', en: 'Unify Anthropic, OpenAI and Google Gemini into a single endpoint. Cloudflare APAC edge for lower-than-upstream latency. Claude and GPT run a tier cheaper than going direct — real savings. Claude Code works with a single env-var change.' },
+    ctaPrimary: { zh: '领取 500K 试用额度', en: 'Claim 500K tokens free' },
+    ctaSecondary: { zh: '查看定价', en: 'See pricing' },
+    tag1: { zh: '订阅转 API', en: 'Subscription-to-API' },
+    tag2: { zh: '会话保持', en: 'Session continuity' },
+    tag3: { zh: '按量计费', en: 'Pay-as-you-go' },
+    tag4: { zh: 'Claude Code 兼容', en: 'Claude Code ready' },
+  },
+  features: {
+    tag: { zh: '功能', en: 'FEATURES' },
+    title: { zh: '三个承诺,每一条都兑现', en: 'Three promises. Each one kept.' },
+    sub: { zh: '为亚太开发者优化的托管 AI API 网关,不是又一个把请求转发出去的代理。', en: 'A hosted gateway tuned for APAC developers — not another proxy that just forwards your requests.' },
+    f1: {
+      title: { zh: '一键接入', en: 'Drop-in integration' },
+      desc: { zh: 'ANTHROPIC_BASE_URL 改一行,不改业务代码。兼容 Anthropic、OpenAI、Google Gemini 三家原生 API 协议,SDK 直接跑。', en: 'One env var — no code changes. Native Anthropic, OpenAI and Google Gemini API protocols, your SDK just works.' },
+    },
+    f2: {
+      title: { zh: '稳定可靠', en: 'Rock-solid delivery' },
+      desc: { zh: 'Cloudflare 亚太边缘接入,首字节延迟 < 60ms。多账户池 + 智能调度,任一上游抖动自动切换,对业务无感知。', en: 'Cloudflare APAC edge — TTFB under 60ms. Multi-account pool with smart scheduling — any upstream hiccup routes around transparently.' },
+      meta: { zh: 'APAC P50 · 多账户池 · 自动故障转移', en: 'APAC P50 · Multi-account pool · Auto-failover' },
+    },
+    f3: {
+      title: { zh: '显著更便宜', en: 'Noticeably cheaper' },
+      desc: { zh: 'Claude 和 GPT 在我们这调用,成本比官方低一个档次。Gemini 平价接入。无月费、无承诺、充多少用多少,支付宝 / 微信 / 信用卡都能付。具体价格见下方 pricing。', en: 'Claude and GPT run a tier cheaper than going direct. Gemini at parity. No monthly fee, no commitment, top up as you go. Alipay / WeChat / Stripe all accepted. See pricing below.' },
+      meta: { zh: '预付充值 · 无月费 · 支付宝 / 微信 / Stripe', en: 'Prepay · No subscription · Alipay / WeChat / Stripe' },
+    },
+  },
+  compare: {
+    tag: { zh: '为什么选 ModelWay', en: 'WHY MODELWAY' },
+    title: { zh: '和你在考虑的方案相比,不同在哪', en: 'How we differ from what you\u2019re comparing us to' },
+    sub: { zh: '诚实地比,不遮短。下面这张表可以直接拿去做技术选型文档。', en: 'Honest comparison. Drop this table straight into your tech-decision doc.' },
+    col: {
+      feat: { zh: '能力', en: 'Capability' },
+      direct: { zh: '直连官方 API', en: 'Direct to provider' },
+      ide: { zh: 'Cursor / Windsurf', en: 'Cursor / Windsurf' },
+      self: { zh: '自建 sub2api', en: 'Self-hosted sub2api' },
+    },
+    r1: { name:{zh:'Claude / GPT 成本',en:'Claude / GPT cost'}, direct:{zh:'官方价',en:'List price'}, ide:{zh:'打包进订阅费',en:'Bundled in subscription'}, self:{zh:'看你走什么渠道',en:'Depends on your channel'}, mw:{zh:'显著更便宜',en:'Noticeably cheaper'} },
+    r2: { name:{zh:'亚太延迟',en:'APAC latency'}, direct:{zh:'取决于上游地区',en:'Depends on upstream region'}, ide:{zh:'看内置路由',en:'Depends on built-in routing'}, self:{zh:'看你自己部署',en:'Your infra, your problem'}, mw:{zh:'CF 亚太边缘直连',en:'CF APAC edge peering'} },
+    r3: { name:{zh:'中文支持',en:'Chinese support'}, direct:{zh:'仅英文',en:'English only'}, ide:{zh:'英文为主',en:'English-first'}, self:{zh:'自己翻译',en:'DIY'}, mw:{zh:'中英双语,客服同响应',en:'Native EN + ZH, same-language support'} },
+    r4: { name:{zh:'使用自由度',en:'Usage flexibility'}, direct:{zh:'通用,任意调用',en:'Generic, any caller'}, ide:{zh:'绑定 IDE / 工具',en:'Locked to IDE / tool'}, self:{zh:'自建受限',en:'Self-host limits'}, mw:{zh:'Raw API,任意调用',en:'Raw API, any caller'} },
+    r5: { name:{zh:'Claude Code 兼容',en:'Claude Code compat'}, direct:{zh:'有限(需 Pro 订阅)',en:'Limited (Pro plan needed)'}, ide:{zh:'N/A(IDE 内置)',en:'N/A (IDE built-in)'}, self:{zh:'需手动配置',en:'Manual config'}, mw:{zh:'一行 env var 搞定',en:'One env var and done'} },
+    r6: { name:{zh:'运维与计费',en:'Ops & billing'}, direct:{zh:'零运维,官方计费',en:'No ops, official billing'}, ide:{zh:'零运维,月订阅',en:'No ops, monthly sub'}, self:{zh:'服务器 + 账号池自维护',en:'Servers + account pool on you'}, mw:{zh:'全托管 + 预付按 token',en:'Fully managed + prepay per token'} },
+  },
+  models: {
+    tag: { zh: '支持的模型', en: 'SUPPORTED MODELS' },
+    title: { zh: '最新模型,第一时间接入', en: 'Latest models, day-one support' },
+    sub: { zh: '上游发版后通常 24-48 小时内支持,无需等待,通过同一个 Endpoint 调用。', en: 'We typically add new upstream models within 24-48 hours — same endpoint.' },
+    more: { zh: '+ 更多', en: '+ more' },
+  },
+  pricing: {
+    tag: { zh: '定价', en: 'PRICING' },
+    title: { zh: '按模型定价,都比官方便宜', en: 'Priced per model, always below upstream' },
+    sub: { zh: '三家主流模型齐全接入。Claude 和 GPT 成本比官方低一个档次,Gemini 平价提供。', en: 'All three major providers in one place. Claude and GPT run a tier cheaper; Gemini at parity.' },
+    tier: {
+      claude: { zh: '显著更便宜', en: 'notably cheaper' },
+      gpt: { zh: '更便宜', en: 'cheaper' },
+      gemini: { zh: '平价', en: 'at parity' },
+      moreTag: { zh: '更多', en: 'MORE' },
+      moreLine: { zh: '更多', en: 'More' },
+      moreHint: { zh: '持续上线', en: 'rolling out' },
+    },
+    cta: { zh: '注册查看实时价格', en: 'See live pricing' },
+    hint: { zh: '500K Claude Haiku 免费额度 · 充多少用多少', en: '500K Claude Haiku tokens free · top up as you go' },
+  },
+  finalCta: {
+    title: { zh: '5 分钟跑通第一次调用', en: 'First call in under 5 minutes' },
+    sub: { zh: '注册即得 500K Claude Haiku tokens → 拷贝 API Key → 改 base URL。就这么简单。', en: 'Sign up and get 500K Claude Haiku tokens → copy your key → change base URL. That\u2019s it.' },
+    btn: { zh: '开始使用 ModelWay', en: 'Start using ModelWay' },
+  },
+  footer: {
+    tagline: { zh: '统一 AI API 网关。Claude、GPT、Gemini 一个 Key 全部接入。为亚太开发者优化,比官方更省钱。', en: 'Unified AI API gateway. Claude, GPT, Gemini via one key. Tuned for APAC developers. Cheaper than going direct.' },
+    product: { zh: '产品', en: 'Product' },
+    developers: { zh: '开发者', en: 'Developers' },
+    legal: { zh: '法务与支持', en: 'Legal & Support' },
+    privacy: { zh: '隐私政策', en: 'Privacy' },
+    terms: { zh: '服务条款', en: 'Terms' },
+    signup: { zh: '免费注册', en: 'Sign up' },
+  },
+};
+
+// ========== Terminal demos ==========
+const DEMOS = [
+  { title: 'bash — anthropic-sdk', lines: [
+    { txt: '$ export ANTHROPIC_BASE_URL=https://api.modelway.dev', type: 'cmd' },
+    { txt: '$ export ANTHROPIC_API_KEY=mw-sk-ap3x...', type: 'cmd' },
+    { txt: '$ claude "Summarize this PR in 3 bullets"', type: 'cmd' },
+    { txt: '', type: 'blank' },
+    { txt: '→ routed: claude-opus-4.7   · apac-edge', type: 'info' },
+    { txt: '→ first token: 42ms', type: 'info' },
+    { txt: '→ total: 1.8s · 512 tokens · $0.0042', type: 'info' },
+  ]},
+  { title: 'bash — openai-compat', lines: [
+    { txt: '$ curl https://api.modelway.dev/v1/chat/completions \\', type: 'cmd' },
+    { txt: '    -H "Authorization: Bearer mw-sk-ap3x..." \\', type: 'cmd' },
+    { txt: '    -d \'{"model":"gpt-5.4","messages":[...]}\'' , type: 'cmd' },
+    { txt: '', type: 'blank' },
+    { txt: '→ routed: gpt-5.4   · apac-edge', type: 'info' },
+    { txt: '→ first token: 38ms', type: 'info' },
+    { txt: '→ total: 1.4s · 387 tokens · $0.0029', type: 'info' },
+  ]},
+  { title: 'bash — gemini-native', lines: [
+    { txt: '$ curl https://api.modelway.dev/v1beta/models/\\', type: 'cmd' },
+    { txt: '    gemini-3.1-pro:generateContent \\', type: 'cmd' },
+    { txt: '    -H "x-goog-api-key: mw-sk-ap3x..." \\', type: 'cmd' },
+    { txt: '    -d \'{"contents":[...]}\'' , type: 'cmd' },
+    { txt: '', type: 'blank' },
+    { txt: '→ routed: gemini-3.1-pro   · apac-edge', type: 'info' },
+    { txt: '→ first token: 51ms', type: 'info' },
+    { txt: '→ total: 2.1s · 290 tokens · $0.0018', type: 'info' },
+  ]},
+];
+
+// ========== Main controller ==========
+const MW = {
+  lang: localStorage.getItem('mw-lang') === 'en' ? 'en' : 'zh',
+
+  init() {
+    this.applyLang(this.lang);
+    this.applyThemeIcon();
+    this.initReveal();
+    this.runTerminal();
+  },
+
+  get(path) {
+    const keys = path.split('.');
+    let v = T;
+    for (const k of keys) { if (!v) return null; v = v[k]; }
+    return v;
+  },
+
+  applyLang(lang) {
+    this.lang = lang;
+    document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = this.get(el.dataset.i18n);
+      if (v && v[lang]) el.textContent = v[lang];
+    });
+    document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+      const attr = el.dataset.i18nAttr;
+      const v = this.get(el.dataset.i18n);
+      if (v && v[lang]) el.setAttribute(attr, v[lang]);
+    });
+    const titleV = this.get('meta.title');
+    if (titleV) document.title = titleV[lang];
+    document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    localStorage.setItem('mw-lang', lang);
+  },
+
+  toggleLang() {
+    this.applyLang(this.lang === 'zh' ? 'en' : 'zh');
+  },
+
+  toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('mw-theme', isDark ? 'dark' : 'light');
+    document.querySelector('meta[name=theme-color]').setAttribute('content', isDark ? '#020617' : '#f9fafb');
+    this.applyThemeIcon();
+  },
+
+  applyThemeIcon() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.getElementById('icon-sun').style.display = isDark ? 'block' : 'none';
+    document.getElementById('icon-moon').style.display = isDark ? 'none' : 'block';
+  },
+
+  toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  },
+
+  initReveal() {
+    document.documentElement.classList.add('js');
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('in'));
+      return;
+    }
+    // Immediately reveal elements already in viewport (above-the-fold)
+    const vh = window.innerHeight;
+    els.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh) el.classList.add('in');
+    });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    els.forEach(el => { if (!el.classList.contains('in')) io.observe(el); });
+  },
+
+  runTerminal() {
+    const body = document.getElementById('term-body');
+    const title = document.getElementById('term-title');
+    let demoIdx = 0;
+
+    const renderLine = (line) => {
+      const span = document.createElement('span');
+      span.className = 'term-line ' + line.type;
+      if (line.type === 'cmd' && line.txt.startsWith('$')) {
+        const prompt = document.createElement('span');
+        prompt.className = 'prompt';
+        prompt.textContent = '$';
+        const rest = line.txt.slice(1);
+        span.appendChild(prompt);
+        span.appendChild(document.createTextNode(rest));
+      } else if (line.type === 'info' && line.txt.includes('ms')) {
+        const match = line.txt.match(/^(.*?)(\d+)(ms.*)$/);
+        if (match) {
+          span.appendChild(document.createTextNode(match[1]));
+          const num = document.createElement('span');
+          num.className = 'num';
+          num.textContent = match[2] + match[3].split(/\s/)[0];
+          span.appendChild(num);
+          span.appendChild(document.createTextNode(match[3].slice(match[3].indexOf(' ')) || ''));
+        } else {
+          span.textContent = line.txt;
+        }
+      } else {
+        span.textContent = line.txt || '\u00A0';
+      }
+      body.appendChild(span);
+    };
+
+    const typeLine = (line, done) => {
+      if (line.type !== 'cmd') {
+        renderLine(line);
+        setTimeout(done, 220);
+        return;
+      }
+      const span = document.createElement('span');
+      span.className = 'term-line cmd';
+      body.appendChild(span);
+      let i = 0;
+      const step = () => {
+        if (i <= line.txt.length) {
+          let content = line.txt.slice(0, i);
+          span.innerHTML = '';
+          if (content.startsWith('$')) {
+            const p = document.createElement('span');
+            p.className = 'prompt';
+            p.textContent = '$';
+            span.appendChild(p);
+            span.appendChild(document.createTextNode(content.slice(1)));
+          } else {
+            span.textContent = content;
+          }
+          if (i < line.txt.length) {
+            const cur = document.createElement('span');
+            cur.className = 'term-cursor';
+            span.appendChild(cur);
+          }
+          i++;
+          setTimeout(step, 18 + Math.random() * 22);
+        } else {
+          done();
+        }
+      };
+      step();
+    };
+
+    const runDemo = (demo) => {
+      body.innerHTML = '';
+      title.textContent = demo.title;
+      let i = 0;
+      const next = () => {
+        if (i >= demo.lines.length) {
+          setTimeout(() => {
+            demoIdx = (demoIdx + 1) % DEMOS.length;
+            runDemo(DEMOS[demoIdx]);
+          }, 2600);
+          return;
+        }
+        typeLine(demo.lines[i], () => { i++; next(); });
+      };
+      next();
+    };
+
+    runDemo(DEMOS[0]);
+  },
+};
+
+document.addEventListener('DOMContentLoaded', () => MW.init());
+</script>
+
+</body>
+</html>

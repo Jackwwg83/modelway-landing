@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ModelWay — V4 Hub Mesh Variations</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #16161f;
+      --border: #1f1f2e;
+      --border-strong: #2a2a3a;
+      --fg: #e8e8f0;
+      --fg-muted: #8a8aa0;
+      --fg-dim: #555566;
+      --accent: #14b8a6;
+      --accent-glow: rgba(20, 184, 166, 0.28);
+      --accent-soft: rgba(20, 184, 166, 0.12);
+    }
+    [data-theme="light"] {
+      --bg: #fafafa; --bg-card: #fff; --bg-card-hover: #fcfcfc;
+      --border: #eaeaea; --border-strong: #d4d4d4;
+      --fg: #1a1a1a; --fg-muted: #666; --fg-dim: #999;
+      --accent: #0d9488;
+      --accent-glow: rgba(13, 148, 136, 0.15);
+      --accent-soft: rgba(13, 148, 136, 0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: var(--bg); color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; mix-blend-mode: overlay;
+    }
+    header {
+      padding: 40px; border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .breadcrumb {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px;
+      color: var(--fg-dim); letter-spacing: 0.1em;
+    }
+    .breadcrumb a { color: var(--fg-muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .theme-toggle {
+      background: var(--bg-card); border: 1px solid var(--border-strong);
+      color: var(--fg); padding: 10px 16px; border-radius: 999px;
+      font-size: 12px; font-family: 'JetBrains Mono', monospace;
+      cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 8px var(--accent);
+    }
+    .intro {
+      max-width: 1400px; margin: 0 auto;
+      padding: 48px 40px 24px;
+    }
+    .intro-title {
+      font-size: 40px; font-weight: 600;
+      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px;
+    }
+    .intro-title .accent { color: var(--accent); }
+    .intro-sub {
+      font-size: 15px; color: var(--fg-muted);
+      max-width: 720px; line-height: 1.6;
+    }
+    .grid {
+      max-width: 1400px; margin: 0 auto;
+      padding: 24px 40px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; position: relative;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 0%, var(--accent-soft) 0%, transparent 70%);
+      opacity: 0; transition: opacity 0.5s; pointer-events: none;
+    }
+    .card:hover::before { opacity: 1; }
+    .card-header {
+      padding: 20px 24px 0;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .card-num {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 10px; color: var(--fg-dim); letter-spacing: 0.15em;
+    }
+    .card-tag {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 10px; padding: 3px 8px;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px; color: var(--fg-muted);
+      letter-spacing: 0.08em;
+    }
+    .card-canvas {
+      padding: 40px 24px 28px;
+      display: flex; justify-content: center; align-items: center;
+      background: radial-gradient(circle at 50% 50%, var(--accent-soft) 0%, transparent 60%),
+                  linear-gradient(180deg, transparent, var(--bg-card));
+      min-height: 240px; position: relative;
+    }
+    .card-canvas svg {
+      width: 170px; height: 170px; color: var(--fg);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+    }
+    .card:hover .card-canvas svg {
+      color: var(--accent); transform: scale(1.04);
+    }
+    .card-body { padding: 0 24px 18px; }
+    .card-title {
+      font-size: 17px; font-weight: 600;
+      letter-spacing: -0.01em; margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px; color: var(--accent);
+      letter-spacing: 0.05em; margin-bottom: 12px;
+    }
+    .card-desc {
+      font-size: 13px; color: var(--fg-muted);
+      line-height: 1.55; margin-bottom: 14px;
+    }
+    .card-meta {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+    }
+    .pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 10px; padding: 3px 8px;
+      background: var(--accent-soft); color: var(--accent);
+      border-radius: 4px; letter-spacing: 0.05em;
+    }
+    .pill-outline {
+      background: transparent; border: 1px solid var(--border-strong); color: var(--fg-muted);
+    }
+    .favicon-strip {
+      border-top: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .favicon-strip-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 9px; color: var(--fg-dim);
+      letter-spacing: 0.12em; text-transform: uppercase; flex-shrink: 0;
+    }
+    .favicon-previews {
+      display: flex; align-items: center; gap: 14px; color: var(--fg);
+    }
+    .fav-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .fav-size {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 8px; color: var(--fg-dim);
+    }
+    footer {
+      max-width: 1400px; margin: 0 auto;
+      padding: 32px 40px 48px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+      color: var(--fg-muted); font-size: 12px;
+    }
+    @media (max-width: 640px) {
+      header, .intro, .grid, footer { padding-left: 20px; padding-right: 20px; }
+      .grid { grid-template-columns: 1fr; }
+      .intro-title { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="showcase.html">← BACK TO 6 ORIGINAL VARIANTS</a>
+        &nbsp;·&nbsp; V4 HUB MESH · DEEP ITERATION
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="theme-dot"></span>
+        <span id="theme-label">DARK MODE</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="intro">
+    <h2 class="intro-title">V4 <span class="accent">Hub Mesh</span> — four directions</h2>
+    <p class="intro-sub">
+      You liked Hub Mesh. Here are four evolutions along different axes:
+      <strong style="color: var(--fg);">symmetry</strong> (perfect vs. asymmetric),
+      <strong style="color: var(--fg);">density</strong> (4 vs. 6 nodes),
+      <strong style="color: var(--fg);">energy</strong> (static vs. pulsing rings),
+      <strong style="color: var(--fg);">rigor</strong> (free-form mesh vs. hexagon lock).
+      Pick one to carry forward — or mix-and-match elements across variants.
+    </p>
+  </section>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    <div>Phase 0 · V4 Iteration</div>
+    <div class="mono" style="color: var(--fg-dim); font-size: 11px;">modelway-landing / brand / variations-v4.html</div>
+  </footer>
+
+  <script>
+    const variants = [
+      {
+        num: 'V4A',
+        title: 'Symmetric',
+        subtitle: 'ORDER · BALANCE',
+        tag: 'CLEANEST',
+        file: 'v4a-symmetric.svg',
+        desc: 'The original Hub Mesh with full symmetry restored — 6 equal-weight satellite nodes, uniform stroke. Loses the dynamic asymmetry of the original but gains maximum balance and timelessness.',
+        pills: ['6 nodes', 'Symmetric', 'Balanced', 'Safe']
+      },
+      {
+        num: 'V4B',
+        title: 'Pulse',
+        subtitle: 'ENERGY · MOTION',
+        tag: 'AI VIBE',
+        file: 'v4b-pulse.svg',
+        desc: 'Concentric rings around the hub signal "data flowing through the gateway." Feels alive — radar-like, breathing. Carries the strongest AI-infrastructure energy of the four.',
+        pills: ['6 nodes', 'Pulse rings', 'Alive', 'AI-native ⭐']
+      },
+      {
+        num: 'V4C',
+        title: 'Hexagon Lock',
+        subtitle: 'STRUCTURE · RIGOR',
+        tag: 'TECHNICAL',
+        file: 'v4c-hexagon.svg',
+        desc: 'Nodes locked onto a true hexagon. The outline hexagon reads as a "network boundary" — you are the platform, everything inside is yours. Most rigorous, infrastructure-like feel.',
+        pills: ['6 nodes', 'Hex-locked', 'Infra', 'Rigorous']
+      },
+      {
+        num: 'V4D',
+        title: 'Minimal 4',
+        subtitle: 'REDUCTION · ICONIC',
+        tag: 'FAVICON',
+        file: 'v4d-minimal.svg',
+        desc: 'Stripped to 4 diagonal connections + central hub. Most favicon-friendly. Reads as an "X with a center" — quick cognitive lock. Sacrifices the "many providers" narrative for iconic simplicity.',
+        pills: ['4 nodes', 'Iconic', 'Favicon ✓✓✓', 'Minimal ⭐']
+      }
+    ];
+
+    const grid = document.getElementById('grid');
+
+    async function loadSvg(file) {
+      const res = await fetch('logos-v4/' + file);
+      return await res.text();
+    }
+
+    async function render() {
+      for (const v of variants) {
+        const svg = await loadSvg(v.file);
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-header">
+            <span class="card-num">${v.num}</span>
+            <span class="card-tag">${v.tag}</span>
+          </div>
+          <div class="card-canvas">${svg}</div>
+          <div class="card-body">
+            <h3 class="card-title">${v.title}</h3>
+            <div class="card-subtitle">${v.subtitle}</div>
+            <p class="card-desc">${v.desc}</p>
+            <div class="card-meta">
+              ${v.pills.map(p => `<span class="pill ${p.includes('⭐') ? '' : 'pill-outline'}">${p}</span>`).join('')}
+            </div>
+          </div>
+          <div class="favicon-strip">
+            <span class="favicon-strip-label">Favicon</span>
+            <div class="favicon-previews">
+              <div class="fav-wrap"><div style="width:16px;height:16px;">${svg.replace(/<svg /,'<svg width="16" height="16" ')}</div><span class="fav-size">16</span></div>
+              <div class="fav-wrap"><div style="width:32px;height:32px;">${svg.replace(/<svg /,'<svg width="32" height="32" ')}</div><span class="fav-size">32</span></div>
+              <div class="fav-wrap"><div style="width:48px;height:48px;">${svg.replace(/<svg /,'<svg width="48" height="48" ')}</div><span class="fav-size">48</span></div>
+              <div class="fav-wrap"><div style="width:64px;height:64px;">${svg.replace(/<svg /,'<svg width="64" height="64" ')}</div><span class="fav-size">64</span></div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.getElementById('theme-label').textContent = next.toUpperCase() + ' MODE';
+      localStorage.setItem('mw-theme', next);
+    }
+
+    const saved = localStorage.getItem('mw-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('theme-label').textContent = saved.toUpperCase() + ' MODE';
+    }
+
+    render();
+  </script>
+</body>
+</html>

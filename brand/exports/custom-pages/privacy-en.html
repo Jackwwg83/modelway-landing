@@ -1,0 +1,64 @@
+<div style="max-width:760px;margin:0 auto;padding:48px 24px;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.65;color:#0b1215">
+  <div style="margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid #e5e7ea">
+    <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8e969a;font-family:'JetBrains Mono',ui-monospace,monospace">LEGAL · PRIVACY POLICY</div>
+    <h1 style="font-size:36px;font-weight:700;letter-spacing:-0.02em;margin:8px 0 0;color:#0b1215">Privacy Policy</h1>
+    <p style="font-size:14px;color:#535b5f;margin-top:8px">Last updated: April 19, 2026 · <a href="/custom/privacy-zh" style="color:#0d9488;text-decoration:none">中文版</a></p>
+  </div>
+
+  <p style="font-size:16px;color:#535b5f;margin-bottom:32px">This Privacy Policy explains how ModelWay ("we", "us", or "our") collects, uses, and protects your personal information when you use our AI API gateway service at modelway.dev and api.modelway.dev (the "Service").</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">1. Information we collect</h2>
+  <p style="margin-bottom:12px"><strong>Account information.</strong> Email address, password hash, and optionally a display name when you register.</p>
+  <p style="margin-bottom:12px"><strong>Usage data.</strong> API request metadata — timestamps, selected upstream provider (Claude / GPT / Gemini), token counts, response latency. We do <em>not</em> persist the content of prompts or responses beyond transient routing.</p>
+  <p style="margin-bottom:12px"><strong>Billing data.</strong> If you purchase credits, Stripe processes payment and we store only the last 4 digits of your card, billing country, and transaction IDs. We do not see or store full card numbers.</p>
+  <p style="margin-bottom:12px"><strong>Technical data.</strong> IP address (used for rate limiting and abuse prevention), user agent, browser language. IPs are retained for 30 days maximum.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">2. How we use your information</h2>
+  <ul style="margin:0 0 16px 20px;padding:0">
+    <li style="margin-bottom:8px">To operate the Service — authenticate you, route API requests, meter usage.</li>
+    <li style="margin-bottom:8px">To bill you accurately and issue receipts.</li>
+    <li style="margin-bottom:8px">To prevent abuse, fraud, and service disruption.</li>
+    <li style="margin-bottom:8px">To communicate with you about account security, service changes, and (optionally) product updates.</li>
+  </ul>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">3. Prompt and response content</h2>
+  <p style="margin-bottom:12px">We act as a transparent proxy between you and upstream AI providers. Your prompts and the model's responses flow through our infrastructure but are <strong>not logged, stored, or used for training</strong> by ModelWay.</p>
+  <p style="margin-bottom:12px">The upstream provider you select (Anthropic, OpenAI, Google, etc.) has its own data handling policy that applies independently. Review the upstream provider's policy before sending sensitive content.</p>
+  <p style="margin-bottom:12px">We may temporarily buffer request payloads in memory for the duration of a single request (typically &lt;30 seconds) purely for transport. Nothing is written to disk or database.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">4. Sharing and third parties</h2>
+  <p style="margin-bottom:12px">We share data only with:</p>
+  <ul style="margin:0 0 16px 20px;padding:0">
+    <li style="margin-bottom:8px"><strong>Upstream AI providers</strong> you explicitly route requests to.</li>
+    <li style="margin-bottom:8px"><strong>Stripe</strong> for payment processing.</li>
+    <li style="margin-bottom:8px"><strong>Infrastructure providers</strong> (AWS, Cloudflare) under data-processing agreements.</li>
+    <li style="margin-bottom:8px"><strong>Email delivery</strong> for transactional messages.</li>
+  </ul>
+  <p style="margin-bottom:12px">We do <strong>not</strong> sell personal information. We do not share data with advertising networks.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">5. Data retention</h2>
+  <p style="margin-bottom:12px">Account data is retained while your account is active. Upon account deletion, personally identifying data is removed within 30 days. Billing records are retained for 7 years as required by financial regulations.</p>
+  <p style="margin-bottom:12px">Aggregated, anonymized usage statistics may be retained indefinitely.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">6. Your rights</h2>
+  <p style="margin-bottom:12px">Depending on your jurisdiction, you may have the right to: access, correct, delete, export, or restrict processing of your personal data. Contact <a href="mailto:support@modelway.dev" style="color:#0d9488;text-decoration:none">support@modelway.dev</a> to exercise these rights.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">7. Security</h2>
+  <p style="margin-bottom:12px">All traffic uses TLS 1.2+. Passwords are hashed with bcrypt. API keys are hashed at rest. We run security audits and welcome responsible disclosure via <a href="mailto:security@modelway.dev" style="color:#0d9488;text-decoration:none">security@modelway.dev</a>.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">8. Children</h2>
+  <p style="margin-bottom:12px">The Service is not directed to users under 16. We do not knowingly collect data from children under 16.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">9. International transfers</h2>
+  <p style="margin-bottom:12px">Our infrastructure spans multiple regions. By using the Service you consent to your data being processed in jurisdictions that may have different privacy laws than yours.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">10. Changes to this policy</h2>
+  <p style="margin-bottom:12px">We'll post material changes to this page and, if you have an account, email you. Continued use after changes constitutes acceptance.</p>
+
+  <h2 style="font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:40px 0 12px;color:#0b1215">11. Contact</h2>
+  <p style="margin-bottom:12px">Questions? <a href="mailto:support@modelway.dev" style="color:#0d9488;text-decoration:none">support@modelway.dev</a></p>
+
+  <div style="margin-top:48px;padding-top:24px;border-top:1px solid #e5e7ea;font-size:12px;color:#8e969a;font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:0.05em">
+    modelway.dev · Unified AI API gateway
+  </div>
+</div>

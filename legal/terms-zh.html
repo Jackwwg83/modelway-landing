@@ -1,0 +1,175 @@
+<style>
+  .mw-legal{max-width:760px;margin:0 auto;padding:48px 24px 96px;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    color:#0f172a;line-height:1.75;font-size:15px}
+  .mw-legal h1{font-size:30px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px;color:#0f172a}
+  .mw-legal .mw-updated{color:#64748b;font-size:13px;margin:0 0 40px;padding-bottom:20px;border-bottom:1px solid #e2e8f0}
+  .mw-legal h2{font-size:20px;font-weight:700;margin:40px 0 12px;color:#0f172a;letter-spacing:-.01em}
+  .mw-legal h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:#0f172a}
+  .mw-legal p{margin:12px 0}
+  .mw-legal ul{padding-left:22px;margin:12px 0}
+  .mw-legal li{margin:6px 0}
+  .mw-legal strong{color:#0f172a;font-weight:600}
+  .mw-legal code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;background:#f1f5f9;padding:2px 6px;border-radius:6px;color:#0f172a}
+  .mw-legal a{color:#0d9488;text-decoration:none;border-bottom:1px solid rgba(20,184,166,.35)}
+  .mw-legal a:hover{color:#14b8a6;border-bottom-color:#14b8a6}
+  .mw-legal .mw-callout{background:#f0fdfa;border:1px solid #ccfbf1;border-radius:16px;padding:16px 20px;margin:20px 0;color:#0f766e;font-size:14px}
+  .mw-legal .mw-warn{background:#fef2f2;border:1px solid #fecaca;border-radius:16px;padding:16px 20px;margin:20px 0;color:#991b1b;font-size:14px}
+  .mw-legal table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  .mw-legal th,.mw-legal td{text-align:left;padding:10px 14px;border-bottom:1px solid #e2e8f0;vertical-align:top}
+  .mw-legal th{background:#f8fafc;font-weight:600;color:#475569;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+  @media (prefers-color-scheme: dark){
+    .mw-legal{color:#e2e8f0}
+    .mw-legal h1,.mw-legal h2,.mw-legal h3,.mw-legal strong{color:#f1f5f9}
+    .mw-legal .mw-updated{color:#94a3b8;border-bottom-color:#1e293b}
+    .mw-legal code{background:#1e293b;color:#e2e8f0}
+    .mw-legal .mw-callout{background:rgba(20,184,166,.08);border-color:rgba(20,184,166,.2);color:#5eead4}
+    .mw-legal .mw-warn{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25);color:#fca5a5}
+    .mw-legal th{background:#0f172a;color:#cbd5e1}
+    .mw-legal th,.mw-legal td{border-bottom-color:#1e293b}
+    .mw-legal a{color:#2dd4bf;border-bottom-color:rgba(45,212,191,.4)}
+    .mw-legal a:hover{color:#5eead4}
+  }
+</style>
+
+<div class="mw-legal">
+
+<h1>服务条款</h1>
+<p class="mw-updated">最后更新日期：2026-04-20 · 适用于 ModelWay（modelway.dev）及所有子域名</p>
+
+<div class="mw-callout">
+<strong>一句话总结：</strong>ModelWay 是一个 AI API 中转网关。你付费调用、我们把请求转发给 Anthropic / OpenAI / Google；<strong>你的 prompt 内容、合规性、使用方式由你自己负责</strong>，我们不审查也不背书。
+</div>
+
+<h2>1. 本条款生效</h2>
+<p>你注册 ModelWay 账户或使用其任何服务（包括 API 调用、控制台访问、Claude Code 接入等），即视为你已阅读、理解并同意本服务条款以及同时生效的<a href="/custom/privacy">隐私政策</a>。若你不同意任何条款，请立即停止使用服务并注销账户。</p>
+
+<h2>2. 服务说明</h2>
+<p>ModelWay 提供以下服务：</p>
+<ul>
+  <li>对 Anthropic、OpenAI、Google Gemini 等上游 AI 模型 API 的统一中转访问（单一 Endpoint、单一 API Key）</li>
+  <li>按 token 计量的后付 / 预付计费</li>
+  <li>多账户池调度、亚太边缘优化、故障自动切换</li>
+  <li>与 Claude Code 等官方客户端的即插即用兼容</li>
+</ul>
+<p>服务本质是中转 —— 我们不训练模型，不改写你的 prompt，不替你筛选内容。</p>
+
+<h2>3. 你的义务</h2>
+
+<h3>3.1 遵守上游服务条款</h3>
+<p>你通过 ModelWay 发起的每一次 API 调用，在法律和上游条款意义上都相当于直接调用上游服务。你必须同时遵守以下各家的 Usage Policies：</p>
+<ul>
+  <li><strong>Anthropic</strong> <a href="https://www.anthropic.com/legal/aup" target="_blank" rel="noopener">Acceptable Use Policy</a></li>
+  <li><strong>OpenAI</strong> <a href="https://openai.com/policies/usage-policies" target="_blank" rel="noopener">Usage Policies</a></li>
+  <li><strong>Google</strong> <a href="https://policies.google.com/terms/generative-ai/use-policy" target="_blank" rel="noopener">Generative AI Prohibited Use Policy</a></li>
+</ul>
+<p>上游因你的调用内容封禁我们的账号池所产生的成本，我们有权向违规用户追偿。</p>
+
+<h3>3.2 账户与密钥安全</h3>
+<ul>
+  <li>妥善保管你的登录密码和 API Key，不可分享、不可公开提交到 Git 仓库</li>
+  <li>API Key 泄露导致的调用费用，由你账户承担</li>
+  <li>发现泄露请立即在控制台吊销并重新生成 Key</li>
+  <li>一个自然人仅允许注册一个账户</li>
+</ul>
+
+<h3>3.3 合法使用</h3>
+<p>你承诺不将 ModelWay 用于以下行为：</p>
+<ul>
+  <li>生成、传播违反中华人民共和国法律法规的内容（包括但不限于涉及政治敏感、暴恐、淫秽、赌博、毒品的内容）</li>
+  <li>侵犯他人知识产权、隐私权、名誉权、肖像权</li>
+  <li>生成针对特定个人或群体的恶意内容（骚扰、诽谤、勒索、仇恨言论）</li>
+  <li>生成深度伪造（deepfake）用于欺诈、冒充他人</li>
+  <li>协助或实施计算机网络攻击、恶意代码开发</li>
+  <li>大规模自动化爬取、刷量、薅取免费额度</li>
+  <li>通过技术手段反向工程、绕过计费、绕过配额、干扰我们的调度系统</li>
+  <li>将服务转售、再分发给第三方（如有商业合作需求请联系 <a href="mailto:support@modelway.dev">support@modelway.dev</a>）</li>
+</ul>
+
+<h2>4. 付费与退款</h2>
+
+<div class="mw-callout">
+<strong>计费模式：</strong>预付充值 · 按 token 调用扣费 · 余额永不过期 · <strong>充值后不支持退款</strong>（但你可以继续使用至用完）。
+</div>
+
+<h3>4.1 价格</h3>
+<ul>
+  <li>每次 API 调用按实际 input / output token 数扣费</li>
+  <li>单价以我们控制台公布为准，会随上游官方调整同步更新</li>
+  <li>充值促销规则以活动页面为准</li>
+</ul>
+
+<h3>4.2 余额</h3>
+<ul>
+  <li>余额计入你的账户，可用于调用任意已开放模型</li>
+  <li>余额不对应具体 token 数量，汇率随上游价格变动</li>
+  <li>账户注销时未用完的余额视为放弃</li>
+</ul>
+
+<h3>4.3 退款</h3>
+<p><strong>已充值金额原则上不予退款</strong>，以下情形除外：</p>
+<ul>
+  <li>我们单方面关停服务（见 §7），将按未使用余额原路退还</li>
+  <li>因我们系统故障导致的计费错误，核实后补偿至余额</li>
+  <li>30 天内未发起任何 API 调用且可证明充值系误操作的，可申请退至原支付账户（扣除支付渠道手续费）</li>
+</ul>
+
+<h2>5. 免责</h2>
+
+<div class="mw-warn">
+<strong>服务按"现状"提供。</strong>我们尽力保证可用性和正确性，但对以下情形不承担责任。
+</div>
+
+<ul>
+  <li><strong>上游故障</strong>：Anthropic / OpenAI / Google 等上游停机、限流、改价、下架模型导致你的调用失败或成本变化</li>
+  <li><strong>不可抗力</strong>：地震、战争、政府管制、互联网基础设施中断（海底电缆、骨干运营商等）</li>
+  <li><strong>跨境网络波动</strong>：你到我们边缘节点之间的公网抖动</li>
+  <li><strong>模型输出质量</strong>：模型返回的内容准确性、是否侵权、是否适合你的业务，由上游和使用者共同承担</li>
+  <li><strong>用户自身失误</strong>：API Key 泄露、prompt 写错、死循环导致超额扣费</li>
+</ul>
+
+<p>在法律允许的最大限度内，即使我们因服务故障需要对你承担责任，赔偿总额以你账户内过去 12 个月的累计充值金额为上限。</p>
+
+<h2>6. 知识产权</h2>
+<ul>
+  <li>ModelWay 的品牌名、logo、网站设计、文档版权属于我们</li>
+  <li>你通过服务提交的 prompt 与收到的响应，其归属与使用权由上游模型提供商条款决定</li>
+  <li>你授权我们为提供服务之必要使用你提交的请求元数据（不含 prompt 内容，见<a href="/custom/privacy">隐私政策</a>）</li>
+</ul>
+
+<h2>7. 账户终止</h2>
+
+<h3>7.1 你主动注销</h3>
+<p>你可在控制台发起账户注销。注销后账户数据按<a href="/custom/privacy">隐私政策</a>处理，未用完余额视为放弃。</p>
+
+<h3>7.2 我们关停你的账户</h3>
+<p>出现以下情况，我们保留立即关停账户、且<strong>不退还余额</strong>的权利：</p>
+<ul>
+  <li>违反 §3.3 合法使用条款</li>
+  <li>触发上游封禁导致我们账号池受损</li>
+  <li>恶意刷量、反向工程、破坏计费系统</li>
+  <li>提交虚假身份信息或 60 天内多次违反本条款</li>
+</ul>
+
+<h3>7.3 我们整体停止服务</h3>
+<p>若我们决定关停 ModelWay 整体服务，将提前 30 天通知所有用户，并对未用完余额按原支付渠道退款。</p>
+
+<h2>8. 条款变更</h2>
+<p>本条款可能随业务演进而变更。变更时我们会：</p>
+<ul>
+  <li>更新本页顶部的"最后更新日期"</li>
+  <li>在你下次登录时弹出变更摘要供你确认</li>
+  <li>重大变更（定价机制变动、免责范围变更、管辖地变更等）提前 30 天通过邮件通知</li>
+</ul>
+<p>变更生效后继续使用服务，视为接受新版本；若不同意，你有权在生效前注销账户并就未用完余额与我们协商退款。</p>
+
+<h2>9. 争议解决</h2>
+<p>本条款的订立、效力、解释、履行及争议解决，均适用<strong>中华人民共和国法律</strong>。因本条款产生或与本条款相关的任何争议，双方应友好协商解决；协商不成的，任何一方均可提交<strong>北京仲裁委员会</strong>按照其现行有效的仲裁规则进行仲裁。仲裁裁决是终局的，对双方均有约束力。</p>
+
+<h2>10. 联系方式</h2>
+<ul>
+  <li>日常咨询与商务合作：<a href="mailto:support@modelway.dev">support@modelway.dev</a></li>
+  <li>安全与滥用举报：<a href="mailto:security@modelway.dev">security@modelway.dev</a></li>
+</ul>
+
+</div>

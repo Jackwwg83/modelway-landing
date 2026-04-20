@@ -1,0 +1,9 @@
+# Screenshots (local previews, don't ship to CF Pages)
+preview-*.png
+showcase-*.png
+v4-variations-preview.png
+brand/preview-*.png
+brand/showcase-*.png
+
+# macOS
+.DS_Store

@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ModelWay — Merge Arrow">
+  <title>ModelWay — Merge Arrow</title>
+  <g stroke="currentColor" stroke-linecap="round" fill="none">
+    <line x1="20" y1="26" x2="72" y2="50" stroke-width="3"/>
+    <line x1="16" y1="42" x2="72" y2="50" stroke-width="2.5" opacity="0.75"/>
+    <line x1="16" y1="58" x2="72" y2="50" stroke-width="2.5" opacity="0.75"/>
+    <line x1="20" y1="74" x2="72" y2="50" stroke-width="3"/>
+    <line x1="14" y1="50" x2="72" y2="50" stroke-width="3.5"/>
+  </g>
+  <polygon points="72,41 90,50 72,59" fill="currentColor"/>
+</svg>

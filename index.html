@@ -744,8 +744,8 @@ html.js .reveal.in{opacity:1;transform:translateY(0)}
       <div class="footer-col">
         <h4 data-i18n="footer.legal">法务与支持</h4>
         <ul>
-          <li><a href="https://api.modelway.dev/custom/privacy" data-i18n="footer.privacy">隐私政策</a></li>
-          <li><a href="https://api.modelway.dev/custom/terms" data-i18n="footer.terms">服务条款</a></li>
+          <li><a href="/legal/privacy-zh" data-legal="privacy" data-i18n="footer.privacy">隐私政策</a></li>
+          <li><a href="/legal/terms-zh" data-legal="terms" data-i18n="footer.terms">服务条款</a></li>
           <li><a href="mailto:support@modelway.dev">support@modelway.dev</a></li>
           <li><a href="mailto:security@modelway.dev">security@modelway.dev</a></li>
         </ul>
@@ -894,7 +894,14 @@ const DEMOS = [
 
 // ========== Main controller ==========
 const MW = {
-  lang: localStorage.getItem('mw-lang') === 'en' ? 'en' : 'zh',
+  lang: (() => {
+    const saved = localStorage.getItem('mw-lang');
+    if (saved === 'en' || saved === 'zh') return saved;
+    // First-time visitors: auto-detect from browser language
+    // zh-* (zh-CN/TW/HK etc) → Chinese, everything else → English
+    const nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    return nav.startsWith('zh') ? 'zh' : 'en';
+  })(),
 
   init() {
     this.applyLang(this.lang);
@@ -926,6 +933,10 @@ const MW = {
     if (titleV) document.title = titleV[lang];
     document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
     document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    // Update legal page links to match current language (zh → privacy-zh, en → privacy-en)
+    document.querySelectorAll('[data-legal]').forEach(el => {
+      el.setAttribute('href', `/legal/${el.dataset.legal}-${lang}`);
+    });
     localStorage.setItem('mw-lang', lang);
   },
 

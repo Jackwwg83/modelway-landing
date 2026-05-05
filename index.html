@@ -137,10 +137,15 @@ html.dark .nav .lang-toggle .active{color:var(--primary-400)}
 html.dark .hero-badge{background:rgba(20,184,166,.12);color:var(--primary-300)}
 .hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--primary-500);box-shadow:0 0 8px var(--primary-500)}
 .hero h1{
-  font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1.05;letter-spacing:-.035em;
-  margin-bottom:16px;
+  font-size:clamp(30px,4.8vw,48px);font-weight:800;line-height:1.18;letter-spacing:-.02em;
+  margin-bottom:20px;
 }
 .hero h1 .accent{
+  background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .hero-pitch{
+  font-size:clamp(28px,4.5vw,44px);font-weight:800;line-height:1.15;letter-spacing:-.02em;
+  margin:0 0 18px;
   background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .hero .subtitle{font-size:clamp(18px,2.5vw,22px);color:var(--fg-muted);font-weight:500;margin-bottom:16px;letter-spacing:-.01em}
@@ -477,8 +482,9 @@ html.js .reveal.in{opacity:1;transform:translateY(0)}
         <span data-i18n="hero.title1">一个 Key，</span><br>
         <span class="accent" data-i18n="hero.title2">通往所有主流 AI 模型。</span>
       </h1>
+      <p class="hero-pitch" data-i18n="hero.pitch">顶级模型 —— 五折以下</p>
       <p class="subtitle" data-i18n="hero.subtitle">Claude / GPT / Gemini 统一 API —— 便宜、快、稳</p>
-      <p class="description" data-i18n="hero.description">把 Anthropic、OpenAI、Google Gemini 的官方 API 统一到一个 Endpoint。Cloudflare 亚太边缘直连,延迟低于直连；Claude 和 GPT 成本比官方低一个档次,真省钱；Claude Code 改一行环境变量即用。</p>
+      <p class="description" data-i18n="hero.description">把 Anthropic、OpenAI、Google Gemini 的官方 API 统一到一个 Endpoint。Cloudflare 亚太边缘直连,延迟低于直连；Claude 和 GPT 对比官方 API 五折以下,顶级模型用零头；Claude Code 改一行环境变量即用。</p>
       <div class="cta-row">
         <a class="btn-primary" href="https://api.modelway.dev/register">
           <span data-i18n="hero.ctaPrimary">领取 500K 试用额度</span>
@@ -539,8 +545,8 @@ html.js .reveal.in{opacity:1;transform:translateY(0)}
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
-        <h3 data-i18n="features.f3.title">显著更便宜</h3>
-        <p data-i18n="features.f3.desc">Claude 和 GPT 在我们这调用,成本比官方低一个档次。Gemini 平价接入。无月费、无承诺、充多少用多少,支付宝 / 微信 / 信用卡都能付。具体价格见下方 pricing。</p>
+        <h3 data-i18n="features.f3.title">Claude 和 GPT 五折以下</h3>
+        <p data-i18n="features.f3.desc">Claude 和 GPT 对比官方 API 通常 3-5 折,顶级模型用零头。Gemini 等其他模型平价接入。无月费、无承诺、充多少用多少,支付宝 / 微信 / 信用卡都能付。具体价格见下方 pricing。</p>
         <div class="meta" data-i18n="features.f3.meta">预付充值 · 无月费 · 支付宝 / 微信 / Stripe</div>
       </article>
     </div>
@@ -573,7 +579,7 @@ html.js .reveal.in{opacity:1;transform:translateY(0)}
             <td class="dim" data-i18n="compare.r1.direct">官方价</td>
             <td class="dim" data-i18n="compare.r1.ide">打包进订阅费</td>
             <td class="dim" data-i18n="compare.r1.self">看你走什么渠道</td>
-            <td class="highlight"><span class="win" data-i18n="compare.r1.mw">显著更便宜</span></td>
+            <td class="highlight"><span class="win" data-i18n="compare.r1.mw">五折以下</span></td>
           </tr>
           <tr>
             <td data-i18n="compare.r2.name"><strong>亚太延迟</strong></td>
@@ -643,25 +649,25 @@ html.js .reveal.in{opacity:1;transform:translateY(0)}
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag" data-i18n="pricing.tag">PRICING</div>
-      <h2 class="section-title" data-i18n="pricing.title">按模型定价,都比官方便宜</h2>
-      <p class="section-sub" data-i18n="pricing.sub">Gemini 平价接入,Claude 和 GPT 显著省钱。价格随官方调整同步更新。</p>
+      <h2 class="section-title" data-i18n="pricing.title">Claude 和 GPT 五折以下,顶级 AI 用零头</h2>
+      <p class="section-sub" data-i18n="pricing.sub">Claude 和 GPT 对比官方 API 通常 3-5 折,Gemini 等其他模型平价接入。价格随官方调整同步更新。</p>
     </div>
 
     <div class="pricing-brands reveal">
       <div class="brand-card">
         <span class="brand-name">Anthropic</span>
         <span class="brand-line">Claude</span>
-        <span class="brand-tier" data-i18n="pricing.tier.claude">显著更便宜</span>
+        <span class="brand-tier" data-i18n="pricing.tier.claude">五折以下</span>
       </div>
       <div class="brand-card">
         <span class="brand-name">OpenAI</span>
         <span class="brand-line">GPT</span>
-        <span class="brand-tier" data-i18n="pricing.tier.gpt">更便宜</span>
+        <span class="brand-tier" data-i18n="pricing.tier.gpt">五折以下</span>
       </div>
       <div class="brand-card parity">
         <span class="brand-name">Google</span>
         <span class="brand-line">Gemini</span>
-        <span class="brand-tier" data-i18n="pricing.tier.gemini">平价</span>
+        <span class="brand-tier" data-i18n="pricing.tier.gemini">平价接入</span>
       </div>
       <div class="brand-card more">
         <span class="brand-name" data-i18n="pricing.tier.moreTag">MORE</span>
@@ -753,7 +759,7 @@ html.js .reveal.in{opacity:1;transform:translateY(0)}
 const T = {
   meta: {
     title: { zh: 'ModelWay — 统一 AI API 网关 · Claude, GPT, Gemini', en: 'ModelWay — Unified AI API gateway · Claude, GPT, Gemini' },
-    description: { zh: '一个 Key 调用 Claude、GPT、Gemini。亚太边缘加速,Claude 和 GPT 显著更便宜,Claude Code 零配置兼容。', en: 'One key for Claude, GPT, Gemini. APAC edge routing, noticeably cheaper Claude and GPT, Claude Code compatible out of the box.' },
+    description: { zh: '一个 Key 调用 Claude、GPT、Gemini。亚太边缘加速,Claude 和 GPT 对比官方 API 五折以下,Claude Code 零配置兼容。', en: 'One key for Claude, GPT, Gemini. APAC edge routing, Claude and GPT under 50% of official API pricing, Claude Code compatible out of the box.' },
   },
   nav: {
     features: { zh: '功能', en: 'Features' },
@@ -768,8 +774,9 @@ const T = {
     badge: { zh: 'AI API 网关', en: 'AI API GATEWAY' },
     title1: { zh: '一个 Key，', en: 'One key,' },
     title2: { zh: '通往所有主流 AI 模型。', en: 'every major AI model.' },
+    pitch: { zh: '顶级模型 —— 五折以下', en: 'Top models — under 50%' },
     subtitle: { zh: 'Claude / GPT / Gemini 统一 API —— 便宜、快、稳', en: 'Claude / GPT / Gemini unified API — cheaper, faster, rock-solid' },
-    description: { zh: '把 Anthropic、OpenAI、Google Gemini 的官方 API 统一到一个 Endpoint。Cloudflare 亚太边缘直连,延迟低于直连；Claude 和 GPT 成本比官方低一个档次,真省钱；Claude Code 改一行环境变量即用。', en: 'Unify Anthropic, OpenAI and Google Gemini into a single endpoint. Cloudflare APAC edge for lower-than-upstream latency. Claude and GPT run a tier cheaper than going direct — real savings. Claude Code works with a single env-var change.' },
+    description: { zh: '把 Anthropic、OpenAI、Google Gemini 的官方 API 统一到一个 Endpoint。Cloudflare 亚太边缘直连,延迟低于直连；Claude 和 GPT 对比官方 API 五折以下,顶级模型用零头；Claude Code 改一行环境变量即用。', en: 'Unify Anthropic, OpenAI and Google Gemini into a single endpoint. Cloudflare APAC edge for lower-than-upstream latency. Claude and GPT at less than 50% of official API pricing — top models for pennies. Claude Code works with a single env-var change.' },
     ctaPrimary: { zh: '领取 500K 试用额度', en: 'Claim 500K tokens free' },
     ctaSecondary: { zh: '查看定价', en: 'See pricing' },
     tag1: { zh: '订阅转 API', en: 'Subscription-to-API' },
@@ -791,8 +798,8 @@ const T = {
       meta: { zh: 'APAC P50 · 多账户池 · 自动故障转移', en: 'APAC P50 · Multi-account pool · Auto-failover' },
     },
     f3: {
-      title: { zh: '显著更便宜', en: 'Noticeably cheaper' },
-      desc: { zh: 'Claude 和 GPT 在我们这调用,成本比官方低一个档次。Gemini 平价接入。无月费、无承诺、充多少用多少,支付宝 / 微信 / 信用卡都能付。具体价格见下方 pricing。', en: 'Claude and GPT run a tier cheaper than going direct. Gemini at parity. No monthly fee, no commitment, top up as you go. Alipay / WeChat / Stripe all accepted. See pricing below.' },
+      title: { zh: 'Claude 和 GPT 五折以下', en: 'Claude & GPT under 50%' },
+      desc: { zh: 'Claude 和 GPT 对比官方 API 通常 3-5 折,顶级模型用零头。Gemini 等其他模型平价接入。无月费、无承诺、充多少用多少,支付宝 / 微信 / 信用卡都能付。具体价格见下方 pricing。', en: 'Claude and GPT typically 30-50% of official API pricing — top models for pennies. Gemini and others at parity. No monthly fee, no commitment, top up as you go. Alipay / WeChat / Stripe all accepted. See pricing below.' },
       meta: { zh: '预付充值 · 无月费 · 支付宝 / 微信 / Stripe', en: 'Prepay · No subscription · Alipay / WeChat / Stripe' },
     },
   },
@@ -806,7 +813,7 @@ const T = {
       ide: { zh: 'Cursor / Windsurf', en: 'Cursor / Windsurf' },
       self: { zh: '自建方案', en: 'Self-hosted' },
     },
-    r1: { name:{zh:'Claude / GPT 成本',en:'Claude / GPT cost'}, direct:{zh:'官方价',en:'List price'}, ide:{zh:'打包进订阅费',en:'Bundled in subscription'}, self:{zh:'看你走什么渠道',en:'Depends on your channel'}, mw:{zh:'显著更便宜',en:'Noticeably cheaper'} },
+    r1: { name:{zh:'Claude / GPT 成本',en:'Claude / GPT cost'}, direct:{zh:'官方价',en:'List price'}, ide:{zh:'打包进订阅费',en:'Bundled in subscription'}, self:{zh:'看你走什么渠道',en:'Depends on your channel'}, mw:{zh:'五折以下',en:'Under 50%'} },
     r2: { name:{zh:'亚太延迟',en:'APAC latency'}, direct:{zh:'取决于上游地区',en:'Depends on upstream region'}, ide:{zh:'看内置路由',en:'Depends on built-in routing'}, self:{zh:'看你自己部署',en:'Your infra, your problem'}, mw:{zh:'CF 亚太边缘直连',en:'CF APAC edge peering'} },
     r3: { name:{zh:'中文支持',en:'Chinese support'}, direct:{zh:'仅英文',en:'English only'}, ide:{zh:'英文为主',en:'English-first'}, self:{zh:'自己翻译',en:'DIY'}, mw:{zh:'中英双语,客服同响应',en:'Native EN + ZH, same-language support'} },
     r4: { name:{zh:'使用自由度',en:'Usage flexibility'}, direct:{zh:'通用,任意调用',en:'Generic, any caller'}, ide:{zh:'绑定 IDE / 工具',en:'Locked to IDE / tool'}, self:{zh:'自建受限',en:'Self-host limits'}, mw:{zh:'Raw API,任意调用',en:'Raw API, any caller'} },
@@ -821,12 +828,12 @@ const T = {
   },
   pricing: {
     tag: { zh: '定价', en: 'PRICING' },
-    title: { zh: '按模型定价,都比官方便宜', en: 'Priced per model, always below upstream' },
-    sub: { zh: '三家主流模型齐全接入。Claude 和 GPT 成本比官方低一个档次,Gemini 平价提供。', en: 'All three major providers in one place. Claude and GPT run a tier cheaper; Gemini at parity.' },
+    title: { zh: 'Claude 和 GPT 五折以下,顶级 AI 用零头', en: 'Claude & GPT under 50% — top AI for pennies' },
+    sub: { zh: 'Claude 和 GPT 对比官方 API 通常 3-5 折,Gemini 等其他模型平价接入。价格随官方调整同步更新。', en: 'Claude and GPT typically 30-50% of official API pricing; Gemini and others at parity. Pricing tracks upstream changes.' },
     tier: {
-      claude: { zh: '显著更便宜', en: 'notably cheaper' },
-      gpt: { zh: '更便宜', en: 'cheaper' },
-      gemini: { zh: '平价', en: 'at parity' },
+      claude: { zh: '五折以下', en: 'under 50%' },
+      gpt: { zh: '五折以下', en: 'under 50%' },
+      gemini: { zh: '平价接入', en: 'at parity' },
       moreTag: { zh: '更多', en: 'MORE' },
       moreLine: { zh: '更多', en: 'More' },
       moreHint: { zh: '持续上线', en: 'rolling out' },
